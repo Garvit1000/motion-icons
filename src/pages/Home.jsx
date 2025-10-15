@@ -10,7 +10,7 @@ import Features from "@/components/Features";
 import {CTA} from "@/components/CallToAction";
 import { motion } from 'framer-motion';
 import {HandWrittenTitle} from '../components/ui/HandWrittenTitle';
-
+import logo from '../assets/logo.jpg';
 const Home = () => {
 
     const fadeUp = {
@@ -46,8 +46,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-       <Navbar/>
 
       {/* Hero Section */}
         <HeroSection/>
@@ -134,23 +132,6 @@ function App() {
         </section>
 
       {/* CTA Section */}
-      {/*<section className="py-32 px-6">*/}
-      {/*  <div className="max-w-4xl mx-auto text-center">*/}
-      {/*    <h2 className="text-4xl md:text-5xl font-bold text-black mb-6 tracking-tight">*/}
-      {/*      Start building with*/}
-      {/*      <br />Motion Icons today*/}
-      {/*    </h2>*/}
-      {/*    <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">*/}
-      {/*      Browse our collection of 3500+ animated icons and integrate them into your project in minutes.*/}
-      {/*    </p>*/}
-      {/*    <Link to="/gallery">*/}
-      {/*      <Button size="lg" className="bg-black hover:bg-gray-800 text-white font-medium h-12 px-8 transition-transform hover:scale-105">*/}
-      {/*        Explore Gallery*/}
-      {/*        <ArrowRight className="ml-2 h-4 w-4" />*/}
-      {/*      </Button>*/}
-      {/*    </Link>*/}
-      {/*  </div>*/}
-      {/*</section>*/}
         <CTA/>
 
       {/* Footer */}
@@ -158,7 +139,7 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2 text-black font-semibold">
-              <MotionIcon name="Sparkles" size={18} className="text-black" animation="pulse" />
+             <img src={logo} alt="Motion Icons Logo" className="h-8 w-8"/>
               Motion Icons
             </div>
             <div className="flex items-center gap-8 text-sm text-gray-600">

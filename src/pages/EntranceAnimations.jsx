@@ -34,26 +34,7 @@ const EntranceAnimations = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-black font-semibold text-lg">
-            <MotionIcon name="Sparkles" size={20} className="text-black" />
-            Motion Icons
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link to="/" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Home
-            </Link>
-            <Link to="/gallery" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Gallery
-            </Link>
-            <Link to="/animations" className="text-sm text-gray-600 hover:text-black transition-colors">
-              Playground
-            </Link>
-          </div>
-        </div>
-      </nav>
+
 
       <div className="pt-24 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
@@ -130,7 +111,7 @@ const EntranceAnimations = () => {
                 </AnimatedCopyButton>
                 <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
                   <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`<AnimatedCopyButton 
+                    {`<AnimatedCopyButton 
   textToCopy="npm install motion-icons"
 >
   Copy Install Command
@@ -155,7 +136,7 @@ const EntranceAnimations = () => {
                 </div>
                 <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
                   <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`<MotionIcon
+                    {`<MotionIcon
   name="Heart"
   entrance="scaleIn"
   animation="heartbeat"
@@ -183,7 +164,7 @@ const EntranceAnimations = () => {
                 </div>
                 <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
                   <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`{icons.map((icon, idx) => (
+                    {`{icons.map((icon, idx) => (
   <MotionIcon
     name={icon}
     entrance="fadeInUp"
@@ -213,12 +194,12 @@ const EntranceAnimations = () => {
                 </div>
                 <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
                   <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`<MotionIcon
+                    {`<MotionIcon
   name="Sparkles"
   animation="tada"
   trigger="hover"
   interactive
-/>`}
+                         />`}
                   </pre>
                 </div>
               </div>

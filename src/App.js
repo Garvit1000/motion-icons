@@ -6,12 +6,15 @@ import IconGallery from './pages/IconGallery';
 import AnimationDemo from './pages/AnimationDemo';
 import EntranceAnimations from './pages/EntranceAnimations';
 import { Toaster } from './components/ui/sonner';
-
+import Navbar from './components/Navbar';
 function App() {
   return (
     <div className="App">
+      
       <BrowserRouter>
+       <Navbar />
         <Routes>
+         
           <Route path="/" element={<Home />} />
           <Route path="/gallery" element={<IconGallery />} />
           <Route path="/animations" element={<AnimationDemo />} />
