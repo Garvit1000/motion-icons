@@ -77,6 +77,12 @@ const MotionIcon = ({
     }
   }, [entrance, animationDelay]);
 
+  // Reset animation state when icon name changes
+  useEffect(() => {
+    setIsAnimating(trigger === 'always');
+    setHasEntered(!entrance);
+  }, [name, trigger, entrance]);
+
   // Determine stroke width based on weight
   const strokeWidth = useMemo(() => {
     switch (weight) {

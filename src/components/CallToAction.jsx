@@ -2,7 +2,7 @@ import { MoveRight, PhoneCall } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {Document} from "postcss";
-
+import { Link } from "react-router-dom";
 function CTA() {
     return (
         <div className="w-full py-20 lg:py-40">
@@ -20,12 +20,16 @@ function CTA() {
                         </p>
                     </div>
                     <div className="flex flex-row gap-4">
+                        <Link to="/docs">
                         <Button className="gap-4" variant="outline">
                             Read Docs
                         </Button>
+                        </Link>
+                        <Link to="/gallery">
                         <Button className="gap-4">
                             Browse Icons <MoveRight className="w-4 h-4" />
                         </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
