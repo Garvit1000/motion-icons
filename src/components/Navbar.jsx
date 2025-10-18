@@ -36,7 +36,7 @@ export default function Navbar() {
                         </a>
                     ))}
                     <a
-                        href="https://github.com"
+                        href="https://github.com/Garvit1000/npm-motion-icons"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-600 hover:text-black transition-colors"

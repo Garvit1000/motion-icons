@@ -1,0 +1,6 @@
+{
+  "name": "motion",
+  "version": "1.0.0",
+  "main": "react.js",
+  "type": "module"
+}

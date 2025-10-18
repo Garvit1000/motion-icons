@@ -5,15 +5,13 @@ import MotionIcon from '../components/MotionIcon';
 import {
   Sidebar,
   SidebarContent,
-  SidebarHeader,
-  SidebarTitle,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarSeparator
+  SidebarProvider
 } from '../components/ui/sidebar';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -122,20 +120,19 @@ const IconGallery = () => {
           <SidebarMenu>
             {categories.map(category => (
               <SidebarMenuItem key={category.id}>
-                <SidebarMenuButton
-                  onClick={() => handleCategoryChange(category.id)}
-                  isActive={selectedCategory === category.id}
-                  className="justify-start"
-                >
-                  {category.label}
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={() => handleCategoryChange(category.id)}
+                    className={`w-full justify-start ${selectedCategory === category.id ? 'bg-accent text-accent-foreground' : ''}`}
+                  >
+                    {category.label}
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
-
-      <SidebarSeparator />
 
       <SidebarGroup>
         <SidebarGroupLabel>Looping Animations</SidebarGroupLabel>
@@ -143,20 +140,19 @@ const IconGallery = () => {
           <SidebarMenu>
             {loopingAnimations.map(animation => (
               <SidebarMenuItem key={animation.id}>
-                <SidebarMenuButton
-                  onClick={() => handleAnimationChange(animation.id)}
-                  isActive={selectedAnimation === animation.id}
-                  className="justify-start"
-                >
-                  {animation.label}
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={() => handleAnimationChange(animation.id)}
+                    className={`w-full justify-start ${selectedAnimation === animation.id ? 'bg-accent text-accent-foreground' : ''}`}
+                  >
+                    {animation.label}
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
-
-      <SidebarSeparator />
 
       <SidebarGroup>
         <SidebarGroupLabel>Custom Animations</SidebarGroupLabel>
@@ -164,12 +160,13 @@ const IconGallery = () => {
           <SidebarMenu>
             {customAnimations.map(animation => (
               <SidebarMenuItem key={animation.id}>
-                <SidebarMenuButton
-                  onClick={() => handleAnimationChange(animation.id)}
-                  isActive={selectedAnimation === animation.id}
-                  className="justify-start"
-                >
-                  {animation.label}
+                <SidebarMenuButton asChild>
+                  <button
+                    onClick={() => handleAnimationChange(animation.id)}
+                    className={`w-full justify-start ${selectedAnimation === animation.id ? 'bg-accent text-accent-foreground' : ''}`}
+                  >
+                    {animation.label}
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
@@ -177,19 +174,18 @@ const IconGallery = () => {
         </SidebarGroupContent>
       </SidebarGroup>
 
-      <SidebarSeparator />
-
       <SidebarGroup>
         <SidebarGroupLabel>No Animation</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton
-                onClick={() => handleAnimationChange('none')}
-                isActive={selectedAnimation === 'none'}
-                className="justify-start"
-              >
-                None
+              <SidebarMenuButton asChild>
+                <button
+                  onClick={() => handleAnimationChange('none')}
+                  className={`w-full justify-start ${selectedAnimation === 'none' ? 'bg-accent text-accent-foreground' : ''}`}
+                >
+                  None
+                </button>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>

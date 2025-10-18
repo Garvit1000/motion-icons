@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import MotionIcon from '../components/MotionIcon';
 import AnimatedCopyButton from '../components/AnimatedCopyButton';
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight, Code, Github } from 'lucide-react';
 import HeroSection from '../components/hero-section';
-import Navbar from "@/components/Navbar";
+
 import Features from "@/components/Features";
 import {CTA} from "@/components/CallToAction";
 import { motion } from 'framer-motion';
 import {HandWrittenTitle} from '../components/ui/HandWrittenTitle';
 import logo from '../assets/logo.jpg';
+import CodeComparisonSection from '../components/CodeCompareSection';
 const Home = () => {
 
     const fadeUp = {
@@ -51,7 +52,7 @@ function App() {
         <HeroSection/>
 
           {/* Animation Preview */}
-        <h2 className="flex flex-col items-center text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Animation Examples</h2>
+        <h2 className="flex flex-col items-center text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Where Simplicity Meets Motion</h2>
           <div className="flex items-center justify-center gap-6 mb-12">
 
             {animationExamples.map((item, idx) => (
@@ -72,26 +73,7 @@ function App() {
           </div>
 
       {/* Code Example */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-            <div className="border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                <span className="ml-3 text-xs text-gray-500 font-mono">App.jsx</span>
-              </div>
-              <AnimatedCopyButton textToCopy={codeExample} />
-            </div>
-            <div className="p-6">
-              <pre className="text-sm text-gray-800 font-mono leading-relaxed">
-                <code>{codeExample}</code>
-              </pre>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CodeComparisonSection/>
 
       {/* Features Grid */}
         <Features/>
@@ -143,10 +125,11 @@ function App() {
               Motion Icons
             </div>
             <div className="flex items-center gap-8 text-sm text-gray-600">
+                <Link to="/legal" className="hover:text-black transition-colors">Legal</Link>
               <Link to="/gallery" className="hover:text-black transition-colors">Gallery</Link>
               <Link to="/animations" className="hover:text-black transition-colors">Animations</Link>
               <a href="#" className="hover:text-black transition-colors">Documentation</a>
-              <a href="#" className="hover:text-black transition-colors">GitHub</a>
+              <a href="https://github.com/Garvit1000/npm-motion-icons" className="hover:text-black transition-colors">GitHub</a>
             </div>
           </div>
           <div className="mt-8 text-center text-xs text-gray-500">
@@ -158,4 +141,4 @@ function App() {
   );
 };
 
-export default Home;
+export default Home ;
