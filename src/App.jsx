@@ -7,6 +7,7 @@ import AnimationDemo from './pages/AnimationDemo';
 import EntranceAnimations from './pages/EntranceAnimations';
 import { Toaster } from './components/ui/sonner';
 import Navbar from './components/Navbar';
+import Legal from './pages/Legal'
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
           <Route path="/gallery" element={<IconGallery />} />
           <Route path="/animations" element={<AnimationDemo />} />
           <Route path="/entrance" element={<EntranceAnimations />} />
+            <Route path="/legal" element={<Legal />} />
         </Routes>
       </BrowserRouter>
       <Toaster />

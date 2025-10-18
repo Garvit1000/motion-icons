@@ -1,480 +1,463 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import * as LucideIcons from 'lucide-react';
-import { Search, X } from 'lucide-react';
-import MotionIcon from '../components/MotionIcon';
-import AnimatedCopyButton from '../components/AnimatedCopyButton';
-import { Button } from '../components/ui/button';
-import { Slider } from '../components/ui/slider';
-import { Badge } from '../components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../components/ui/dialog';
-import { Input } from '../components/ui/input';
+"use client"
 
-const AnimationDemo = () => {
-  const [animationDuration, setAnimationDuration] = useState(1000);
-  const [iconSize, setIconSize] = useState(48);
-  const [selectedAnimation, setSelectedAnimation] = useState('pulse');
-  const [selectedIcon, setSelectedIcon] = useState('Heart');
-  const [selectedTrigger, setSelectedTrigger] = useState('always');
-  const [iconSearchQuery, setIconSearchQuery] = useState('');
-  const [iconDialogOpen, setIconDialogOpen] = useState(false);
+import { useState, useMemo } from "react"
+import * as LucideIcons from "lucide-react"
+import { Search, Copy, Check, X, Menu } from "lucide-react"
+import MotionIcon from "../components/MotionIcon"
+import { Slider } from "@/components/ui/slider"
+import { Input } from "@/components/ui/input"
 
-  const loopingAnimations = [
-    { id: 'pulse', name: 'Pulse', icon: 'Bell' },
-    { id: 'spin', name: 'Spin', icon: 'Loader2' },
-    { id: 'bounce', name: 'Bounce', icon: 'ArrowDown' },
-    { id: 'ping', name: 'Ping', icon: 'Zap' }
-  ];
 
-  const customAnimations = [
-    { id: 'wiggle', name: 'Wiggle', icon: 'Waves' },
-    { id: 'flip', name: 'Flip', icon: 'RefreshCw' },
-    { id: 'swing', name: 'Swing', icon: 'Wind' },
-    { id: 'tada', name: 'Tada', icon: 'Sparkles' },
-    { id: 'heartbeat', name: 'Heartbeat', icon: 'Heart' },
-    { id: 'rubber', name: 'Rubber', icon: 'Disc' },
-    { id: 'shake', name: 'Shake', icon: 'AlertTriangle' }
-  ];
+/**
+ * AnimationDemo Component
+ *
+ * An interactive icon playground with a collapsible sidebar for parameter controls.
+ * Displays icon preview and generated code below the play area.
+ */
+const AnimationDemo = ({
+                           iconColor = "text-black",
+                           defaultAnimation = "pulse",
+                           defaultIcon = "Heart",
+                           showSidebar = true,
+                       }) => {
+    const [sidebarOpen, setSidebarOpen] = useState(true)
 
-  const allAnimations = [...loopingAnimations, ...customAnimations];
+    // State management for all animation controls
+    const [animationDuration, setAnimationDuration] = useState(1000)
+    const [iconSize, setIconSize] = useState(48)
+    const [selectedAnimation, setSelectedAnimation] = useState(defaultAnimation)
+    const [selectedIcon, setSelectedIcon] = useState(defaultIcon)
+    const [selectedTrigger, setSelectedTrigger] = useState("always")
+    const [iconSearchQuery, setIconSearchQuery] = useState("")
+    const [selectedEntrance, setSelectedEntrance] = useState("none")
+    const [animationDelay, setAnimationDelay] = useState(0)
+    const [selectedWeight, setSelectedWeight] = useState("regular")
+    const [selectedColorOption, setSelectedColorOption] = useState(iconColor)
+    const [isInteractive, setIsInteractive] = useState(false)
+    const [copiedCode, setCopiedCode] = useState(false)
 
-  // Get all available Lucide icons
-  const allIcons = useMemo(() => {
-    return Object.keys(LucideIcons).filter(name => {
-      const isIconComponent = typeof LucideIcons[name] === 'function' || typeof LucideIcons[name] === 'object';
-      const isNotIconSuffix = !name.endsWith('Icon');
-      return isIconComponent && isNotIconSuffix;
-    });
-  }, []);
+    // Animation definitions
+    const loopingAnimations = [
+        { id: "pulse", name: "Pulse", icon: "Bell" },
+        { id: "spin", name: "Spin", icon: "Loader2" },
+        { id: "bounce", name: "Bounce", icon: "ArrowDown" },
+        { id: "ping", name: "Ping", icon: "Zap" },
+    ]
 
-  // Filter icons based on search query
-  const filteredIcons = useMemo(() => {
-    if (!iconSearchQuery) return allIcons.slice(0, 24); // Show first 24 icons by default
-    return allIcons.filter(icon =>
-      icon.toLowerCase().includes(iconSearchQuery.toLowerCase())
-    );
-  }, [allIcons, iconSearchQuery]);
+    const customAnimations = [
+        { id: "wiggle", name: "Wiggle", icon: "Waves" },
+        { id: "flip", name: "Flip", icon: "RefreshCw" },
+        { id: "swing", name: "Swing", icon: "Wind" },
+        { id: "tada", name: "Tada", icon: "Sparkles" },
+        { id: "heartbeat", name: "Heartbeat", icon: "Heart" },
+        { id: "rubber", name: "Rubber", icon: "Disc" },
+        { id: "shake", name: "Shake", icon: "AlertTriangle" },
+    ]
 
-  const iconOptions = [
-    'Heart', 'Star', 'Sparkles', 'Zap', 'Bell', 'Award',
-    'Flame', 'Sun', 'Moon', 'Cloud', 'Leaf', 'Flower'
-  ];
+    const allAnimations = [...loopingAnimations, ...customAnimations]
 
-  const triggerModes = [
-    { id: 'always', label: 'Always' },
-    { id: 'hover', label: 'Hover' },
-    { id: 'click', label: 'Click' },
-    { id: 'focus', label: 'Focus' }
-  ];
+    // Get all available Lucide icons
+    const allIcons = useMemo(() => {
+        return Object.keys(LucideIcons).filter((name) => {
+            const isIconComponent = typeof LucideIcons[name] === "function" || typeof LucideIcons[name] === "object"
+            const isNotIconSuffix = !name.endsWith("Icon")
+            return isIconComponent && isNotIconSuffix
+        })
+    }, [])
 
-  const generateCode = () => {
-    return `<MotionIcon
+    // Filter icons based on search query
+    const filteredIcons = useMemo(() => {
+        if (!iconSearchQuery) return allIcons.slice(0, 24)
+        return allIcons.filter((icon) => icon.toLowerCase().includes(iconSearchQuery.toLowerCase()))
+    }, [allIcons, iconSearchQuery])
+
+    const triggerModes = [
+        { id: "always", label: "Always" },
+        { id: "hover", label: "Hover" },
+        { id: "click", label: "Click" },
+        { id: "focus", label: "Focus" },
+    ]
+
+    const entranceAnimations = [
+        { id: "none", label: "None" },
+        { id: "fadeIn", label: "Fade In" },
+        { id: "fadeInUp", label: "Fade In Up" },
+        { id: "fadeInDown", label: "Fade In Down" },
+        { id: "fadeInLeft", label: "Fade In Left" },
+        { id: "fadeInRight", label: "Fade In Right" },
+        { id: "scaleIn", label: "Scale In" },
+        { id: "slideInUp", label: "Slide In Up" },
+        { id: "slideInDown", label: "Slide In Down" },
+        { id: "rotateIn", label: "Rotate In" },
+        { id: "zoomIn", label: "Zoom In" },
+    ]
+
+    const weightOptions = [
+        { id: "light", label: "Light" },
+        { id: "regular", label: "Regular" },
+        { id: "bold", label: "Bold" },
+    ]
+
+    const tailwindColors = [
+        { name: "Black", value: "black", class: "text-black", color: "#000000" },
+        { name: "White", value: "white", class: "text-white", color: "#FFFFFF" },
+        { name: "Gray 500", value: "gray-500", class: "text-gray-500", color: "#6B7280" },
+        { name: "Red 500", value: "red-500", class: "text-red-500", color: "#EF4444" },
+        { name: "Orange 500", value: "orange-500", class: "text-orange-500", color: "#F97316" },
+        { name: "Amber 500", value: "amber-500", class: "text-amber-500", color: "#F59E0B" },
+        { name: "Yellow 500", value: "yellow-500", class: "text-yellow-500", color: "#EAB308" },
+        { name: "Lime 500", value: "lime-500", class: "text-lime-500", color: "#84CC16" },
+        { name: "Green 500", value: "green-500", class: "text-green-500", color: "#22C55E" },
+        { name: "Emerald 500", value: "emerald-500", class: "text-emerald-500", color: "#10B981" },
+        { name: "Teal 500", value: "teal-500", class: "text-teal-500", color: "#14B8A6" },
+        { name: "Cyan 500", value: "cyan-500", class: "text-cyan-500", color: "#06B6D4" },
+        { name: "Sky 500", value: "sky-500", class: "text-sky-500", color: "#0EA5E9" },
+        { name: "Blue 500", value: "blue-500", class: "text-blue-500", color: "#3B82F6" },
+        { name: "Indigo 500", value: "indigo-500", class: "text-indigo-500", color: "#6366F1" },
+        { name: "Violet 500", value: "violet-500", class: "text-violet-500", color: "#8B5CF6" },
+        { name: "Purple 500", value: "purple-500", class: "text-purple-500", color: "#A855F7" },
+        { name: "Fuchsia 500", value: "fuchsia-500", class: "text-fuchsia-500", color: "#D946EF" },
+        { name: "Pink 500", value: "pink-500", class: "text-pink-500", color: "#EC4899" },
+        { name: "Rose 500", value: "rose-500", class: "text-rose-500", color: "#F43F5E" },
+    ]
+
+    const generateCode = () => {
+        const selectedColor = tailwindColors.find(c => c.class === selectedColorOption);
+        return `<MotionIcon
   name="${selectedIcon}"
   size={${iconSize}}
+  color="${selectedColor?.color || '#000000'}"
   animation="${selectedAnimation}"
+  entrance={${selectedEntrance !== 'none' ? `"${selectedEntrance}"` : 'null'}}
   animationDuration={${animationDuration}}
+  animationDelay={${animationDelay}}
   trigger="${selectedTrigger}"
-  className="text-black"
+  weight="${selectedWeight}"
+  interactive={${isInteractive}}
 />`;
-  };
+    };
 
-  return (
-    <div className="min-h-screen bg-white">
-      
 
-      <div className="pt-24 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold text-black mb-4 tracking-tight">Interactive Playground</h1>
-            <p className="text-lg text-gray-600">Customize and preview animations in real-time</p>
-          </div>
+    const handleCopyCode = () => {
+        navigator.clipboard.writeText(generateCode())
+        setCopiedCode(true)
+        setTimeout(() => setCopiedCode(false), 2000)
+    }
 
-          {/* Interactive Playground */}
-          <div className="mb-20">
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Preview */}
-              <div className="bg-gray-50 rounded-2xl border border-gray-200 p-12 flex items-center justify-center min-h-[400px]">
-                <MotionIcon
-                  key={`${selectedIcon}-${selectedAnimation}-${selectedTrigger}`}
-                  name={selectedIcon}
-                  size={iconSize}
-                  animation={selectedAnimation}
-                  animationDuration={animationDuration}
-                  trigger={selectedTrigger}
-                  interactive={selectedTrigger !== 'always'}
-                  className="text-black"
-                />
-              </div>
+    return (
+        <div className="flex flex-col lg:flex-row h-screen bg-background text-foreground overflow-hidden pt-16 lg:pt-16">
+            {showSidebar && (
+                <>
+                    {/* Mobile overlay when sidebar is open */}
+                    {sidebarOpen && (
+                        <div
+                            className="fixed inset-0 bg-black/50 lg:hidden z-30"
+                            onClick={() => setSidebarOpen(false)}
+                        />
+                    )}
 
-              {/* Controls */}
-              <div className="space-y-8">
-                {/* Icon Selection */}
-                <div>
-                  <label className="text-sm font-semibold text-black mb-3 block">
-                    Icon
-                  </label>
-                  <div className="space-y-3">
-                    {/* Quick Icon Selection */}
-                    <div>
-                      <p className="text-xs text-gray-600 mb-2">Quick Select</p>
-                      <div className="flex flex-wrap gap-2">
-                        {iconOptions.map(icon => (
-                          <button
-                            key={icon}
-                            onClick={() => setSelectedIcon(icon)}
-                            className={`w-10 h-10 rounded-lg border transition-all ${
-                              selectedIcon === icon
-                                ? 'border-blue-500 bg-blue-500'
-                                : 'border-gray-300 bg-white hover:border-gray-400 hover:bg-gray-50'
-                            }`}
-                          >
-                            <MotionIcon
-                              name={icon}
-                              size={16}
-                              className={selectedIcon === icon ? 'text-white' : 'text-black'}
-                            />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                    {/* Sidebar with smooth transition */}
+                    <div
+                        className={`fixed lg:relative top-0 left-0 h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out z-40 flex flex-col ${
+                            sidebarOpen ? "w-80 translate-x-0" : "w-16 -translate-x-full lg:translate-x-0"
+                        }`}
+                    >
+                        {/* Toggle button - always visible */}
+                        <div className="flex-shrink-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+                            <button
+                                onClick={() => setSidebarOpen(!sidebarOpen)}
+                                className="p-2 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
+                                aria-label="Toggle sidebar"
+                            >
+                                {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            </button>
+                            <h3 className={`text-sm font-semibold transition-opacity duration-300 whitespace-nowrap ${sidebarOpen ? "opacity-100" : "opacity-0"}`}>
+                                {sidebarOpen && "Parameters"}
+                            </h3>
+                        </div>
 
-                    {/* Browse All Icons */}
-                    <div>
-                      <p className="text-xs text-gray-600 mb-2">Current: {selectedIcon}</p>
-                      <Button 
-                        variant="outline" 
-                        className="w-full justify-between"
-                        onClick={() => setIconDialogOpen(true)}
-                      >
-                        <span className="flex items-center gap-2">
-                          <MotionIcon name={selectedIcon} size={16} className="text-black" />
-                          Browse All Icons ({allIcons.length})
-                        </span>
-                        <Search className="h-4 w-4" />
-                      </Button>
-                      
-                      <Dialog open={iconDialogOpen} onOpenChange={setIconDialogOpen}>
-                        <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
-                          <DialogHeader>
-                            <DialogTitle>Select an Icon</DialogTitle>
-                          </DialogHeader>
-                          <div className="space-y-4">
-                            {/* Search Input */}
-                            <div className="relative">
-                              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                              <Input
-                                placeholder="Search icons..."
-                                value={iconSearchQuery}
-                                onChange={(e) => setIconSearchQuery(e.target.value)}
-                                className="pl-10"
-                              />
-                              {iconSearchQuery && (
-                                <button
-                                  onClick={() => setIconSearchQuery('')}
-                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                >
-                                  <X className="h-4 w-4" />
-                                </button>
-                              )}
-                            </div>
-
-                            {/* Icon Grid */}
-                            <div className="max-h-96 overflow-y-auto">
-                              <div className="grid grid-cols-8 gap-2">
-                                {filteredIcons.map(icon => (
-                                  <button
-                                    key={icon}
-                                    onClick={() => {
-                                      setSelectedIcon(icon);
-                                      setIconDialogOpen(false);
-                                    }}
-                                    className={`p-3 rounded-lg border transition-all hover:border-gray-400 ${
-                                      selectedIcon === icon
-                                        ? 'border-blue-500 bg-blue-500 text-white'
-                                        : 'border-gray-300 bg-white text-black hover:bg-gray-50'
-                                    }`}
-                                    title={icon}
-                                  >
-                                    <MotionIcon
-                                      name={icon}
-                                      size={20}
-                                      className={selectedIcon === icon ? 'text-white' : 'text-black'}
-                                    />
-                                  </button>
-                                ))}
-                              </div>
-                              {filteredIcons.length === 0 && (
-                                <div className="text-center py-8 text-gray-500">
-                                  No icons found matching "{iconSearchQuery}"
+                        <div className={`flex-1 overflow-y-auto ${sidebarOpen ? "" : "overflow-hidden"}`}>
+                            <div className="p-4 md:p-6 space-y-6">
+                                {/* Animation Selection */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Animation</label>
+                                    <div className="grid grid-cols-2 gap-1">
+                                        {allAnimations.map((anim) => (
+                                            <button
+                                                key={anim.id}
+                                                onClick={() => setSelectedAnimation(anim.id)}
+                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                    selectedAnimation === anim.id
+                                                        ? "bg-blue-600 text-white"
+                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                }`}
+                                            >
+                                                {anim.name}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
-                              )}
+
+                                {/* Trigger Mode */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Trigger</label>
+                                    <div className="grid grid-cols-2 gap-1">
+                                        {triggerModes.map((mode) => (
+                                            <button
+                                                key={mode.id}
+                                                onClick={() => setSelectedTrigger(mode.id)}
+                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                    selectedTrigger === mode.id
+                                                        ? "bg-blue-600 text-white"
+                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                }`}
+                                            >
+                                                {mode.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Entrance Animation */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Entrance</label>
+                                    <div className="grid grid-cols-2 gap-1">
+                                        {entranceAnimations.slice(0, 6).map((entrance) => (
+                                            <button
+                                                key={entrance.id}
+                                                onClick={() => setSelectedEntrance(entrance.id)}
+                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                    selectedEntrance === entrance.id
+                                                        ? "bg-blue-600 text-white"
+                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                }`}
+                                            >
+                                                {entrance.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Weight */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Weight</label>
+                                    <div className="grid grid-cols-3 gap-1">
+                                        {weightOptions.map((weight) => (
+                                            <button
+                                                key={weight.id}
+                                                onClick={() => setSelectedWeight(weight.id)}
+                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                    selectedWeight === weight.id
+                                                        ? "bg-blue-600 text-white"
+                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                }`}
+                                            >
+                                                {weight.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Interactive */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Interactive</label>
+                                    <div className="grid grid-cols-2 gap-1">
+                                        <button
+                                            onClick={() => setIsInteractive(false)}
+                                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                !isInteractive
+                                                    ? "bg-blue-600 text-white"
+                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                            }`}
+                                        >
+                                            False
+                                        </button>
+                                        <button
+                                            onClick={() => setIsInteractive(true)}
+                                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                                                isInteractive
+                                                    ? "bg-blue-600 text-white"
+                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                            }`}
+                                        >
+                                            True
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Icon Color - Tailwind color customization */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Color</label>
+                                    <div className="grid grid-cols-5 gap-2">
+                                        {tailwindColors.map((color) => (
+                                            <button
+                                                key={color.value}
+                                                onClick={() => setSelectedColorOption(color.class)}
+                                                className={`w-8 h-8 rounded border-2 transition-all ${
+                                                    selectedColorOption === color.class ? "border-blue-600 ring-2 ring-blue-200" : "border-gray-300"
+                                                }`}
+                                                style={{ backgroundColor: color.color }}
+                                                title={color.name}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Size Slider */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">Size: {iconSize}px</label>
+                                    <Slider
+                                        value={[iconSize]}
+                                        onValueChange={(value) => setIconSize(value[0])}
+                                        min={16}
+                                        max={128}
+                                        step={4}
+                                        className="w-full"
+                                    />
+                                </div>
+
+                                {/* Duration Slider */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">
+                                        Duration: {animationDuration}ms
+                                    </label>
+                                    <Slider
+                                        value={[animationDuration]}
+                                        onValueChange={(value) => setAnimationDuration(value[0])}
+                                        min={100}
+                                        max={3000}
+                                        step={100}
+                                        className="w-full"
+                                    />
+                                </div>
+
+                                {/* Delay Slider */}
+                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+                                    <label className="text-xs font-semibold text-gray-600 uppercase">
+                                        Delay: {animationDelay}ms
+                                    </label>
+                                    <Slider
+                                        value={[animationDelay]}
+                                        onValueChange={(value) => setAnimationDelay(value[0])}
+                                        min={0}
+                                        max={1000}
+                                        step={50}
+                                        className="w-full"
+                                    />
+                                </div>
                             </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                        </div>
                     </div>
-                  </div>
-                </div>
+                </>
+            )}
 
-                {/* Animation Type */}
-                <div>
-                  <label className="text-sm font-semibold text-black mb-3 block">
-                    Animation Type
-                  </label>
-                  
-                  {/* Looping Animations */}
-                  <div className="mb-4">
-                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Looping Animations</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {loopingAnimations.map(anim => (
-                        <Button
-                          key={anim.id}
-                          variant={selectedAnimation === anim.id ? 'default' : 'outline'}
-                          size="sm"
-                          className={selectedAnimation === anim.id 
-                            ? 'bg-blue-500 text-white hover:bg-blue-600' 
-                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                          }
-                          onClick={() => setSelectedAnimation(anim.id)}
+            <div className="flex-1 flex flex-col overflow-hidden">
+                {/* Header - simplified without toggle button */}
+                <div className="border-b border-gray-200 bg-white p-4 md:p-6 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Icon Playground</h1>
+                        <p className="text-xs md:text-sm text-gray-600 mt-1">Customize and preview animated icons</p>
+                    </div>
+                    {/* Mobile toggle button - visible only on mobile when sidebar is closed */}
+                    {showSidebar && !sidebarOpen && (
+                        <button
+                            onClick={() => setSidebarOpen(true)}
+                            className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors"
+                            aria-label="Open sidebar"
                         >
-                          {anim.name}
-                        </Button>
-                      ))}
+                            <Menu className="w-6 h-6" />
+                        </button>
+                    )}
+                </div>
+
+                {/* Main Content */}
+                <div className="flex-1 overflow-y-auto">
+                    <div className="p-3 md:p-4 lg:p-6 space-y-4 md:space-y-6">
+                        {/* Icon Selection with visible search icon */}
+                        <div className="space-y-2 md:space-y-3">
+                            <label className="text-xs md:text-sm font-semibold">Select Icon</label>
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400 pointer-events-none" />
+                                <Input
+                                    placeholder="Search icons..."
+                                    value={iconSearchQuery}
+                                    onChange={(e) => setIconSearchQuery(e.target.value)}
+                                    className="pl-9 md:pl-10 text-sm md:text-base"
+                                />
+                            </div>
+                            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1.5 md:gap-2 max-h-40 md:max-h-48 overflow-y-auto p-2 bg-white border border-gray-200 rounded-lg">
+                                {filteredIcons.slice(0, 40).map((icon) => {
+                                    const IconComponent = LucideIcons[icon]
+                                    return (
+                                        <button
+                                            key={icon}
+                                            onClick={() => setSelectedIcon(icon)}
+                                            className={`p-2 md:p-3 rounded flex items-center justify-center transition-colors ${
+                                                selectedIcon === icon
+                                                    ? "bg-blue-600 text-white"
+                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                            }`}
+                                            title={icon}
+                                        >
+                                            {IconComponent && <IconComponent className="w-4 h-4 md:w-5 md:h-5" />}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                        </div>
+
+                        {/* Icon Preview Section */}
+                        <div className="bg-white border border-gray-200 rounded-lg p-6 md:p-8 lg:p-12 flex items-center justify-center min-h-48 md:min-h-64">
+                            <div className="flex flex-col items-center gap-3 md:gap-4">
+                                <MotionIcon
+                                    name={selectedIcon}
+                                    size={iconSize}
+                                    color={tailwindColors.find(c => c.class === selectedColorOption)?.color || '#000000'}
+                                    animation={selectedAnimation}
+                                    entrance={selectedEntrance !== 'none' ? selectedEntrance : null}
+                                    animationDuration={animationDuration}
+                                    animationDelay={animationDelay}
+                                    trigger={selectedTrigger}
+                                    weight={selectedWeight}
+                                    interactive={isInteractive}
+                                />
+                                <div className="text-center">
+                                    <p className="font-semibold text-sm md:text-base">{selectedIcon}</p>
+                                    <p className="text-xs text-gray-600">{selectedAnimation}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Generated Code Section - Moved below play area */}
+                        <div className="space-y-2 md:space-y-3 bg-white border border-gray-200 rounded-lg p-4 md:p-6">
+                            <div className="flex items-center justify-between">
+                                <label className="text-xs md:text-sm font-semibold">Generated Code</label>
+                                <button
+                                    onClick={handleCopyCode}
+                                    className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1 md:py-1.5 rounded text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                                >
+                                    {copiedCode ? (
+                                        <>
+                                            <Check className="w-3 h-3 md:w-4 md:h-4" />
+                                            <span className="hidden sm:inline">Copied</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy className="w-3 h-3 md:w-4 md:h-4" />
+                                            <span className="hidden sm:inline">Copy</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                            <pre className="bg-gray-50 p-3 md:p-4 rounded-lg overflow-x-auto text-xs font-mono border border-gray-200">
+                                <code>{generateCode()}</code>
+                            </pre>
+                        </div>
                     </div>
-                  </div>
-
-                  {/* Custom Animations */}
-                  <div>
-                    <h4 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Custom Animations</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {customAnimations.map(anim => (
-                        <Button
-                          key={anim.id}
-                          variant={selectedAnimation === anim.id ? 'default' : 'outline'}
-                          size="sm"
-                          className={selectedAnimation === anim.id 
-                            ? 'bg-purple-500 text-white hover:bg-purple-600' 
-                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                          }
-                          onClick={() => setSelectedAnimation(anim.id)}
-                        >
-                          {anim.name}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
                 </div>
-
-                {/* Trigger Mode */}
-                <div>
-                  <label className="text-sm font-semibold text-black mb-3 block">
-                    Trigger Mode
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {triggerModes.map(trigger => (
-                      <Button
-                        key={trigger.id}
-                        variant={selectedTrigger === trigger.id ? 'default' : 'outline'}
-                        size="sm"
-                        className={selectedTrigger === trigger.id 
-                          ? 'bg-black text-white hover:bg-gray-800' 
-                          : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                        }
-                        onClick={() => setSelectedTrigger(trigger.id)}
-                      >
-                        {trigger.label}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Icon Size */}
-                <div>
-                  <label className="text-sm font-semibold text-black mb-3 block">
-                    Icon Size: <span className="font-mono text-gray-600">{iconSize}px</span>
-                  </label>
-                  <Slider
-                    value={[iconSize]}
-                    onValueChange={([value]) => setIconSize(value)}
-                    min={24}
-                    max={96}
-                    step={8}
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Animation Duration */}
-                <div>
-                  <label className="text-sm font-semibold text-black mb-3 block">
-                    Duration: <span className="font-mono text-gray-600">{animationDuration}ms</span>
-                  </label>
-                  <Slider
-                    value={[animationDuration]}
-                    onValueChange={([value]) => setAnimationDuration(value)}
-                    min={500}
-                    max={3000}
-                    step={100}
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Code Output */}
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <label className="text-sm font-semibold text-black">
-                      Generated Code
-                    </label>
-                    <AnimatedCopyButton textToCopy={generateCode()} />
-                  </div>
-                  <div className="bg-gray-900 rounded-xl p-4 border border-gray-800">
-                    <pre className="text-xs text-gray-100 font-mono overflow-x-auto">
-                      <code>{generateCode()}</code>
-                    </pre>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-
-          {/* Quick Reference */}
-          <div className="mb-20">
-            <h2 className="text-2xl font-bold text-black mb-6">All Animations</h2>
-            
-            {/* Looping Animations */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">Looping Animations</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {loopingAnimations.map(anim => (
-                  <button
-                    key={anim.id}
-                    onClick={() => setSelectedAnimation(anim.id)}
-                    className={`bg-white border rounded-xl p-4 hover:border-blue-400 transition-all text-left ${
-                      selectedAnimation === anim.id ? 'border-blue-500 shadow-md bg-blue-50' : 'border-gray-200'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-lg border border-gray-200 bg-gray-50 flex items-center justify-center">
-                        <MotionIcon
-                          name={anim.icon}
-                          size={20}
-                          animation={anim.id}
-                          className="text-black"
-                        />
-                      </div>
-                      <span className="text-sm font-semibold text-black">{anim.name}</span>
-                    </div>
-                    <p className="text-xs text-gray-500">Continuous loop</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Custom Animations */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">Custom Animations</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {customAnimations.map(anim => (
-                  <button
-                    key={anim.id}
-                    onClick={() => setSelectedAnimation(anim.id)}
-                    className={`bg-white border rounded-xl p-4 hover:border-purple-400 transition-all text-left ${
-                      selectedAnimation === anim.id ? 'border-purple-500 shadow-md bg-purple-50' : 'border-gray-200'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-lg border border-gray-200 bg-gray-50 flex items-center justify-center">
-                        <MotionIcon
-                          name={anim.icon}
-                          size={20}
-                          animation={anim.id}
-                          className="text-black"
-                        />
-                      </div>
-                      <span className="text-sm font-semibold text-black">{anim.name}</span>
-                    </div>
-                    <p className="text-xs text-gray-500">One-time effect</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Usage Examples */}
-          <div className="mb-20">
-            <h2 className="text-2xl font-bold text-black mb-6">Common Use Cases</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Loading State */}
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-6">
-                <div className="mb-4 flex justify-center">
-                  <MotionIcon name="Loader2" size={32} animation="spin" className="text-black" />
-                </div>
-                <h3 className="text-sm font-semibold text-black mb-2 text-center">Loading</h3>
-                <p className="text-xs text-gray-600 text-center">Spinner animation</p>
-              </div>
-
-              {/* Notification */}
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-6">
-                <div className="mb-4 flex justify-center">
-                  <MotionIcon name="Bell" size={32} animation="wiggle" className="text-black" />
-                </div>
-                <h3 className="text-sm font-semibold text-black mb-2 text-center">Notification</h3>
-                <p className="text-xs text-gray-600 text-center">Attention grabber</p>
-              </div>
-
-              {/* Success */}
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-6">
-                <div className="mb-4 flex justify-center">
-                  <MotionIcon name="Sparkles" size={32} animation="tada" className="text-black" />
-                </div>
-                <h3 className="text-sm font-semibold text-black mb-2 text-center">Success</h3>
-                <p className="text-xs text-gray-600 text-center">Celebration effect</p>
-              </div>
-
-              {/* Interactive */}
-              <div className="bg-gray-50 rounded-xl border border-gray-200 p-6">
-                <div className="mb-4 flex justify-center">
-                  <MotionIcon 
-                    name="Heart" 
-                    size={32} 
-                    animation="heartbeat" 
-                    trigger="hover" 
-                    interactive 
-                    className="text-black"
-                  />
-                </div>
-                <h3 className="text-sm font-semibold text-black mb-2 text-center">Interactive</h3>
-                <p className="text-xs text-gray-600 text-center">Hover to animate</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Tips */}
-          <div className="bg-black text-white rounded-2xl p-8">
-            <h2 className="text-2xl font-bold mb-4">Pro Tips</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-300">Performance</h3>
-                <p className="text-sm text-gray-400">All animations use CSS transforms for 60fps performance. Avoid animating too many icons simultaneously for best results.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-300">Accessibility</h3>
-                <p className="text-sm text-gray-400">Animations respect <code className="text-white">prefers-reduced-motion</code> settings. Users with motion sensitivity won't see animations.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-300">Customization</h3>
-                <p className="text-sm text-gray-400">Use <code className="text-white">className</code> prop for Tailwind styling. Supports all Tailwind color utilities with <code className="text-white">currentColor</code>.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-300">Triggers</h3>
-                <p className="text-sm text-gray-400">Combine <code className="text-white">trigger="hover"</code> with <code className="text-white">interactive</code> prop for better UX on interactive elements.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
-export default AnimationDemo;
+export default AnimationDemo
