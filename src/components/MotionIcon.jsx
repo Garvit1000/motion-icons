@@ -37,26 +37,27 @@ const entranceAnimations = {
 };
 
 const MotionIcon = ({
-                        name,
-                        size = 24,
-                        color = 'currentColor',
-                        weight = 'regular',
-                        animation = 'none',
-                        entrance = null, // Entrance animation
-                        animationDuration = 1000,
-                        animationDelay = 0,
-                        trigger = 'always',
-                        interactive = false,
-                        className = '',
-                        'aria-label': ariaLabel,
-                        onClick,
-                        onMouseEnter,
-                        onMouseLeave,
-                        onAnimationEnd,
-                        ...props
-                    }) => {
+    name,
+    size = 24,
+    color = 'currentColor',
+    weight = 'regular',
+    animation = 'none',
+    entrance = null, // Entrance animation
+    animationDuration = 1000,
+    animationDelay = 0,
+    trigger = 'always',
+    interactive = false,
+    className = '',
+    'aria-label': ariaLabel,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+    onAnimationEnd,
+    ...props
+}) => {
     const [isAnimating, setIsAnimating] = useState(trigger === 'always');
     const [isHovered, setIsHovered] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const [hasEntered, setHasEntered] = useState(!entrance);
 
     // Get the icon component from lucide-react
@@ -115,6 +116,13 @@ const MotionIcon = ({
             setIsAnimating(true);
             setTimeout(() => setIsAnimating(false), animationDuration);
         }
+
+        // Prevent focus on click when trigger is 'focus' (keyboard-only)
+        if (trigger === 'focus') {
+            e.preventDefault();
+            e.currentTarget.blur();
+        }
+
         onClick?.(e);
     };
 
@@ -122,12 +130,14 @@ const MotionIcon = ({
         if (trigger === 'focus') {
             setIsAnimating(true);
         }
+        setIsFocused(true);
     };
 
     const handleBlur = () => {
         if (trigger === 'focus') {
             setIsAnimating(false);
         }
+        setIsFocused(false);
     };
 
     const handleAnimationEnd = (e) => {
@@ -146,14 +156,18 @@ const MotionIcon = ({
     const entranceClass = entrance && !hasEntered ? entranceAnimations[entrance] : '';
     const shouldAnimate = isAnimating && animation !== 'none';
 
+    // Only apply interactive hover/focus scale when NOT animating to avoid transform conflicts
+    const shouldShowInteractiveScale = (isHovered || isFocused) && interactive && !shouldAnimate;
+
     return (
         <span
             className={cn(
                 'inline-flex items-center justify-center',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded',
                 interactive && 'cursor-pointer transition-transform duration-200',
                 shouldAnimate && animationClass,
                 entranceClass,
-                isHovered && interactive && 'scale-110',
+                shouldShowInteractiveScale && 'scale-110',
                 className
             )}
             style={{
@@ -169,15 +183,15 @@ const MotionIcon = ({
             onAnimationEnd={handleAnimationEnd}
             role={interactive ? 'button' : 'img'}
             aria-label={ariaLabel || name}
-            tabIndex={interactive ? 0 : undefined}
+            tabIndex={interactive || trigger === 'focus' ? 0 : undefined}
             {...props}
         >
-      <IconComponent
-          size={size}
-          strokeWidth={strokeWidth}
-          aria-hidden="true"
-      />
-    </span>
+            <IconComponent
+                size={size}
+                strokeWidth={strokeWidth}
+                aria-hidden="true"
+            />
+        </span>
     );
 };
 

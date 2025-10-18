@@ -1,12 +1,396 @@
-"use client"
-
 import { useState, useMemo } from "react"
 import * as LucideIcons from "lucide-react"
-import { Search, Copy, Check, X, Menu } from "lucide-react"
+import { Search, Copy, Check, Menu } from "lucide-react"
 import MotionIcon from "../components/MotionIcon"
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils"
+import {
+    SidebarProvider,
+    Sidebar,
+    SidebarHeader,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarGroupContent,
+    SidebarMenu,
+    SidebarMenuItem,
+    SidebarMenuButton,
+    SidebarInset,
+    SidebarTrigger,
+    useSidebar,
+} from "@/components/ui/sidebar"
 
+/**
+ * SidebarContentComponent - Reusable sidebar content for both desktop and mobile
+ */
+const SidebarContentComponent = ({
+    allAnimations,
+    selectedAnimation,
+    setSelectedAnimation,
+    triggerModes,
+    selectedTrigger,
+    setSelectedTrigger,
+    entranceAnimations,
+    selectedEntrance,
+    setSelectedEntrance,
+    weightOptions,
+    selectedWeight,
+    setSelectedWeight,
+    isInteractive,
+    setIsInteractive,
+    tailwindColors,
+    selectedColorOption,
+    setSelectedColorOption,
+    iconSize,
+    setIconSize,
+    animationDuration,
+    setAnimationDuration,
+    animationDelay,
+    setAnimationDelay,
+    onMobileClose,
+    isCollapsed = false,
+}) => {
+    // If collapsed, show icon-only view
+    if (isCollapsed) {
+        return (
+            <div className="space-y-4 flex flex-col items-center py-4">
+                {/* Animation icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Animation"
+                >
+                    <LucideIcons.Sparkles className="w-5 h-5" />
+                </button>
+                
+                {/* Trigger icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Trigger"
+                >
+                    <LucideIcons.MousePointer className="w-5 h-5" />
+                </button>
+                
+                {/* Entrance icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Entrance"
+                >
+                    <LucideIcons.LogIn className="w-5 h-5" />
+                </button>
+                
+                {/* Weight icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Weight"
+                >
+                    <LucideIcons.Type className="w-5 h-5" />
+                </button>
+                
+                {/* Interactive icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Interactive"
+                >
+                    <LucideIcons.Hand className="w-5 h-5" />
+                </button>
+                
+                {/* Color icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Color"
+                >
+                    <LucideIcons.Palette className="w-5 h-5" />
+                </button>
+                
+                {/* Size icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Size"
+                >
+                    <LucideIcons.Maximize2 className="w-5 h-5" />
+                </button>
+                
+                {/* Duration icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Duration"
+                >
+                    <LucideIcons.Clock className="w-5 h-5" />
+                </button>
+                
+                {/* Delay icon */}
+                <button
+                    onClick={() => {}}
+                    className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
+                    title="Delay"
+                >
+                    <LucideIcons.Timer className="w-5 h-5" />
+                </button>
+            </div>
+        )
+    }
+    
+    return (
+        <div className="space-y-6">
+            {/* Animation Selection */}
+            <SidebarGroup>
+                <SidebarGroupLabel>ANIMATION</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <div className="grid grid-cols-2 gap-1">
+                            {allAnimations.map((anim) => (
+                                <SidebarMenuItem key={anim.id}>
+                                    <SidebarMenuButton
+                                        onClick={() => {
+                                            setSelectedAnimation(anim.id)
+                                            onMobileClose?.()
+                                        }}
+                                        isActive={selectedAnimation === anim.id}
+                                        className={`justify-center ${selectedAnimation === anim.id
+                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                                : ""
+                                            }`}
+                                    >
+                                        {anim.name}
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </div>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Trigger Mode */}
+            <SidebarGroup>
+                <SidebarGroupLabel>TRIGGER</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <div className="grid grid-cols-2 gap-1">
+                            {triggerModes.map((mode) => (
+                                <SidebarMenuItem key={mode.id}>
+                                    <SidebarMenuButton
+                                        onClick={() => {
+                                            setSelectedTrigger(mode.id)
+                                            onMobileClose?.()
+                                        }}
+                                        isActive={selectedTrigger === mode.id}
+                                        className={`justify-center ${selectedTrigger === mode.id
+                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                                : ""
+                                            }`}
+                                    >
+                                        {mode.label}
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </div>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Entrance Animation */}
+            <SidebarGroup>
+                <SidebarGroupLabel>ENTRANCE</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <div className="grid grid-cols-2 gap-1">
+                            {entranceAnimations.slice(0, 6).map((entrance) => (
+                                <SidebarMenuItem key={entrance.id}>
+                                    <SidebarMenuButton
+                                        onClick={() => {
+                                            setSelectedEntrance(entrance.id)
+                                            onMobileClose?.()
+                                        }}
+                                        isActive={selectedEntrance === entrance.id}
+                                        className={`justify-center ${selectedEntrance === entrance.id
+                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                                : ""
+                                            }`}
+                                    >
+                                        {entrance.label}
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </div>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Weight */}
+            <SidebarGroup>
+                <SidebarGroupLabel>WEIGHT</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <div className="grid grid-cols-3 gap-1">
+                            {weightOptions.map((weight) => (
+                                <SidebarMenuItem key={weight.id}>
+                                    <SidebarMenuButton
+                                        onClick={() => {
+                                            setSelectedWeight(weight.id)
+                                            onMobileClose?.()
+                                        }}
+                                        isActive={selectedWeight === weight.id}
+                                        className={`justify-center ${selectedWeight === weight.id
+                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                                : ""
+                                            }`}
+                                    >
+                                        {weight.label}
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
+                        </div>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Interactive */}
+            <SidebarGroup>
+                <SidebarGroupLabel>INTERACTIVE</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <div className="grid grid-cols-2 gap-1">
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    onClick={() => {
+                                        setIsInteractive(false)
+                                        onMobileClose?.()
+                                    }}
+                                    isActive={!isInteractive}
+                                    className={`justify-center ${!isInteractive
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
+                                        }`}
+                                >
+                                    False
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    onClick={() => {
+                                        setIsInteractive(true)
+                                        onMobileClose?.()
+                                    }}
+                                    isActive={isInteractive}
+                                    className={`justify-center ${isInteractive
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
+                                        }`}
+                                >
+                                    True
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        </div>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Color Picker */}
+            <SidebarGroup>
+                <SidebarGroupLabel>COLOR</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <div className="grid grid-cols-5 gap-2 px-2">
+                        {tailwindColors.map((color) => (
+                            <button
+                                key={color.value}
+                                onClick={() => {
+                                    setSelectedColorOption(color.class)
+                                    onMobileClose?.()
+                                }}
+                                className={`w-8 h-8 rounded border-2 transition-all ${selectedColorOption === color.class
+                                        ? "border-blue-600 ring-2 ring-blue-200"
+                                        : "border-gray-300"
+                                    }`}
+                                style={{ backgroundColor: color.color }}
+                                title={color.name}
+                            />
+                        ))}
+                    </div>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Size Slider */}
+            <SidebarGroup>
+                <SidebarGroupLabel>SIZE: {iconSize}px</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <Slider
+                        value={[iconSize]}
+                        onValueChange={(value) => setIconSize(value[0])}
+                        min={16}
+                        max={128}
+                        step={4}
+                        className="w-full"
+                    />
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Duration Slider */}
+            <SidebarGroup>
+                <SidebarGroupLabel>DURATION: {animationDuration}ms</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <Slider
+                        value={[animationDuration]}
+                        onValueChange={(value) => setAnimationDuration(value[0])}
+                        min={100}
+                        max={3000}
+                        step={100}
+                        className="w-full"
+                    />
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            {/* Delay Slider */}
+            <SidebarGroup>
+                <SidebarGroupLabel>DELAY: {animationDelay}ms</SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <Slider
+                        value={[animationDelay]}
+                        onValueChange={(value) => setAnimationDelay(value[0])}
+                        min={0}
+                        max={1000}
+                        step={50}
+                        className="w-full"
+                    />
+                </SidebarGroupContent>
+            </SidebarGroup>
+        </div>
+    )
+}
+
+/**
+ * DesktopSidebarWrapper - Wrapper component that uses useSidebar hook
+ */
+const DesktopSidebarWrapper = (props) => {
+    const { state } = useSidebar()
+    const isCollapsed = state === "collapsed"
+    
+    return (
+        <Sidebar className="hidden lg:flex">
+            <SidebarHeader className="border-b">
+                <div className="flex items-center justify-between">
+                    {!isCollapsed && <h3 className="text-sm font-semibold">Parameters</h3>}
+                    <SidebarTrigger className={cn(isCollapsed && "mx-auto")} />
+                </div>
+            </SidebarHeader>
+            <SidebarContent className={cn(isCollapsed && "p-0")}>
+                <SidebarContentComponent
+                    {...props}
+                    isCollapsed={isCollapsed}
+                />
+            </SidebarContent>
+        </Sidebar>
+    )
+}
 
 /**
  * AnimationDemo Component
@@ -15,12 +399,12 @@ import { Input } from "@/components/ui/input"
  * Displays icon preview and generated code below the play area.
  */
 const AnimationDemo = ({
-                           iconColor = "text-black",
-                           defaultAnimation = "pulse",
-                           defaultIcon = "Heart",
-                           showSidebar = true,
-                       }) => {
-    const [sidebarOpen, setSidebarOpen] = useState(true)
+    iconColor = "text-black",
+    defaultAnimation = "pulse",
+    defaultIcon = "Heart",
+    showSidebar = true,
+}) => {
+    const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 
     // State management for all animation controls
     const [animationDuration, setAnimationDuration] = useState(1000)
@@ -137,243 +521,118 @@ const AnimationDemo = ({
 />`;
     };
 
-
     const handleCopyCode = () => {
         navigator.clipboard.writeText(generateCode())
         setCopiedCode(true)
         setTimeout(() => setCopiedCode(false), 2000)
     }
 
-    return (
-        <div className="flex flex-col lg:flex-row h-screen bg-background text-foreground overflow-hidden pt-16 lg:pt-16">
-            {showSidebar && (
-                <>
-                    {/* Mobile overlay when sidebar is open */}
-                    {sidebarOpen && (
-                        <div
-                            className="fixed inset-0 bg-black/50 lg:hidden z-30"
-                            onClick={() => setSidebarOpen(false)}
-                        />
-                    )}
-
-                    {/* Sidebar with smooth transition */}
-                    <div
-                        className={`fixed lg:relative top-0 left-0 h-full bg-white border-r border-gray-200 transition-all duration-300 ease-in-out z-40 flex flex-col ${
-                            sidebarOpen ? "w-80 translate-x-0" : "w-16 -translate-x-full lg:translate-x-0"
-                        }`}
-                    >
-                        {/* Toggle button - always visible */}
-                        <div className="flex-shrink-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-                            <button
-                                onClick={() => setSidebarOpen(!sidebarOpen)}
-                                className="p-2 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
-                                aria-label="Toggle sidebar"
-                            >
-                                {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                            </button>
-                            <h3 className={`text-sm font-semibold transition-opacity duration-300 whitespace-nowrap ${sidebarOpen ? "opacity-100" : "opacity-0"}`}>
-                                {sidebarOpen && "Parameters"}
-                            </h3>
-                        </div>
-
-                        <div className={`flex-1 overflow-y-auto ${sidebarOpen ? "" : "overflow-hidden"}`}>
-                            <div className="p-4 md:p-6 space-y-6">
-                                {/* Animation Selection */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Animation</label>
-                                    <div className="grid grid-cols-2 gap-1">
-                                        {allAnimations.map((anim) => (
-                                            <button
-                                                key={anim.id}
-                                                onClick={() => setSelectedAnimation(anim.id)}
-                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                    selectedAnimation === anim.id
-                                                        ? "bg-blue-600 text-white"
-                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                }`}
-                                            >
-                                                {anim.name}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Trigger Mode */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Trigger</label>
-                                    <div className="grid grid-cols-2 gap-1">
-                                        {triggerModes.map((mode) => (
-                                            <button
-                                                key={mode.id}
-                                                onClick={() => setSelectedTrigger(mode.id)}
-                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                    selectedTrigger === mode.id
-                                                        ? "bg-blue-600 text-white"
-                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                }`}
-                                            >
-                                                {mode.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Entrance Animation */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Entrance</label>
-                                    <div className="grid grid-cols-2 gap-1">
-                                        {entranceAnimations.slice(0, 6).map((entrance) => (
-                                            <button
-                                                key={entrance.id}
-                                                onClick={() => setSelectedEntrance(entrance.id)}
-                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                    selectedEntrance === entrance.id
-                                                        ? "bg-blue-600 text-white"
-                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                }`}
-                                            >
-                                                {entrance.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Weight */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Weight</label>
-                                    <div className="grid grid-cols-3 gap-1">
-                                        {weightOptions.map((weight) => (
-                                            <button
-                                                key={weight.id}
-                                                onClick={() => setSelectedWeight(weight.id)}
-                                                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                    selectedWeight === weight.id
-                                                        ? "bg-blue-600 text-white"
-                                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                }`}
-                                            >
-                                                {weight.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Interactive */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Interactive</label>
-                                    <div className="grid grid-cols-2 gap-1">
-                                        <button
-                                            onClick={() => setIsInteractive(false)}
-                                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                !isInteractive
-                                                    ? "bg-blue-600 text-white"
-                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                            }`}
-                                        >
-                                            False
-                                        </button>
-                                        <button
-                                            onClick={() => setIsInteractive(true)}
-                                            className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                                                isInteractive
-                                                    ? "bg-blue-600 text-white"
-                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                            }`}
-                                        >
-                                            True
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Icon Color - Tailwind color customization */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Color</label>
-                                    <div className="grid grid-cols-5 gap-2">
-                                        {tailwindColors.map((color) => (
-                                            <button
-                                                key={color.value}
-                                                onClick={() => setSelectedColorOption(color.class)}
-                                                className={`w-8 h-8 rounded border-2 transition-all ${
-                                                    selectedColorOption === color.class ? "border-blue-600 ring-2 ring-blue-200" : "border-gray-300"
-                                                }`}
-                                                style={{ backgroundColor: color.color }}
-                                                title={color.name}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Size Slider */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">Size: {iconSize}px</label>
-                                    <Slider
-                                        value={[iconSize]}
-                                        onValueChange={(value) => setIconSize(value[0])}
-                                        min={16}
-                                        max={128}
-                                        step={4}
-                                        className="w-full"
-                                    />
-                                </div>
-
-                                {/* Duration Slider */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">
-                                        Duration: {animationDuration}ms
-                                    </label>
-                                    <Slider
-                                        value={[animationDuration]}
-                                        onValueChange={(value) => setAnimationDuration(value[0])}
-                                        min={100}
-                                        max={3000}
-                                        step={100}
-                                        className="w-full"
-                                    />
-                                </div>
-
-                                {/* Delay Slider */}
-                                <div className={`space-y-2 transition-opacity duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                                    <label className="text-xs font-semibold text-gray-600 uppercase">
-                                        Delay: {animationDelay}ms
-                                    </label>
-                                    <Slider
-                                        value={[animationDelay]}
-                                        onValueChange={(value) => setAnimationDelay(value[0])}
-                                        min={0}
-                                        max={1000}
-                                        step={50}
-                                        className="w-full"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            )}
-
-            <div className="flex-1 flex flex-col overflow-hidden">
-                {/* Header - simplified without toggle button */}
-                <div className="border-b border-gray-200 bg-white p-4 md:p-6 flex items-center justify-between">
-                    <div>
-                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Icon Playground</h1>
-                        <p className="text-xs md:text-sm text-gray-600 mt-1">Customize and preview animated icons</p>
-                    </div>
-                    {/* Mobile toggle button - visible only on mobile when sidebar is closed */}
-                    {showSidebar && !sidebarOpen && (
-                        <button
-                            onClick={() => setSidebarOpen(true)}
-                            className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors"
-                            aria-label="Open sidebar"
-                        >
-                            <Menu className="w-6 h-6" />
-                        </button>
-                    )}
-                </div>
-
-                {/* Main Content */}
+    if (!showSidebar) {
+        // Return original layout without sidebar
+        return (
+            <div className="flex flex-col h-screen bg-background text-foreground overflow-hidden">
                 <div className="flex-1 overflow-y-auto">
                     <div className="p-3 md:p-4 lg:p-6 space-y-4 md:space-y-6">
-                        {/* Icon Selection with visible search icon */}
+                        {/* Content without sidebar */}
+                        <div className="text-center">
+                            <h1 className="text-2xl font-bold">Icon Playground</h1>
+                            <p className="text-sm text-gray-600">Customize and preview animated icons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className="pt-16">
+            <SidebarProvider defaultOpen={true}>
+                <DesktopSidebarWrapper
+                    allAnimations={allAnimations}
+                    selectedAnimation={selectedAnimation}
+                    setSelectedAnimation={setSelectedAnimation}
+                    triggerModes={triggerModes}
+                    selectedTrigger={selectedTrigger}
+                    setSelectedTrigger={setSelectedTrigger}
+                    entranceAnimations={entranceAnimations}
+                    selectedEntrance={selectedEntrance}
+                    setSelectedEntrance={setSelectedEntrance}
+                    weightOptions={weightOptions}
+                    selectedWeight={selectedWeight}
+                    setSelectedWeight={setSelectedWeight}
+                    isInteractive={isInteractive}
+                    setIsInteractive={setIsInteractive}
+                    tailwindColors={tailwindColors}
+                    selectedColorOption={selectedColorOption}
+                    setSelectedColorOption={setSelectedColorOption}
+                    iconSize={iconSize}
+                    setIconSize={setIconSize}
+                    animationDuration={animationDuration}
+                    setAnimationDuration={setAnimationDuration}
+                    animationDelay={animationDelay}
+                    setAnimationDelay={setAnimationDelay}
+                />
+
+                {/* Main Content */}
+                <SidebarInset>
+                    {/* Header */}
+                    <div className="border-b border-gray-200 bg-white p-4 md:p-6 flex items-center justify-between">
+                        <div>
+                            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Icon Playground</h1>
+                            <p className="text-xs md:text-sm text-gray-600 mt-1">Customize and preview animated icons</p>
+                        </div>
+                        {/* Mobile menu button */}
+                        <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+                            <SheetTrigger asChild>
+                                <button
+                                    className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors"
+                                    aria-label="Open sidebar"
+                                >
+                                    <Menu className="w-6 h-6" />
+                                </button>
+                            </SheetTrigger>
+                            <SheetContent side="left" className="w-80 p-0 mt-16">
+                                <div className="h-full overflow-y-auto">
+                                    <div className="p-4 border-b">
+                                        <h3 className="text-sm font-semibold">Parameters</h3>
+                                    </div>
+                                    <div className="p-4">
+                                        <SidebarContentComponent
+                                            allAnimations={allAnimations}
+                                            selectedAnimation={selectedAnimation}
+                                            setSelectedAnimation={setSelectedAnimation}
+                                            triggerModes={triggerModes}
+                                            selectedTrigger={selectedTrigger}
+                                            setSelectedTrigger={setSelectedTrigger}
+                                            entranceAnimations={entranceAnimations}
+                                            selectedEntrance={selectedEntrance}
+                                            setSelectedEntrance={setSelectedEntrance}
+                                            weightOptions={weightOptions}
+                                            selectedWeight={selectedWeight}
+                                            setSelectedWeight={setSelectedWeight}
+                                            isInteractive={isInteractive}
+                                            setIsInteractive={setIsInteractive}
+                                            tailwindColors={tailwindColors}
+                                            selectedColorOption={selectedColorOption}
+                                            setSelectedColorOption={setSelectedColorOption}
+                                            iconSize={iconSize}
+                                            setIconSize={setIconSize}
+                                            animationDuration={animationDuration}
+                                            setAnimationDuration={setAnimationDuration}
+                                            animationDelay={animationDelay}
+                                            setAnimationDelay={setAnimationDelay}
+                                            onMobileClose={() => setMobileSidebarOpen(false)}
+                                        />
+                                    </div>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+
+                {/* Main Content Area */}
+                <div className="flex-1 overflow-y-auto">
+                    <div className="p-3 md:p-4 lg:p-6 space-y-4 md:space-y-6">
+                        {/* Icon Selection */}
                         <div className="space-y-2 md:space-y-3">
                             <label className="text-xs md:text-sm font-semibold">Select Icon</label>
                             <div className="relative">
@@ -392,11 +651,10 @@ const AnimationDemo = ({
                                         <button
                                             key={icon}
                                             onClick={() => setSelectedIcon(icon)}
-                                            className={`p-2 md:p-3 rounded flex items-center justify-center transition-colors ${
-                                                selectedIcon === icon
+                                            className={`p-2 md:p-3 rounded flex items-center justify-center transition-colors ${selectedIcon === icon
                                                     ? "bg-blue-600 text-white"
                                                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                            }`}
+                                                }`}
                                             title={icon}
                                         >
                                             {IconComponent && <IconComponent className="w-4 h-4 md:w-5 md:h-5" />}
@@ -428,7 +686,7 @@ const AnimationDemo = ({
                             </div>
                         </div>
 
-                        {/* Generated Code Section - Moved below play area */}
+                        {/* Generated Code Section */}
                         <div className="space-y-2 md:space-y-3 bg-white border border-gray-200 rounded-lg p-4 md:p-6">
                             <div className="flex items-center justify-between">
                                 <label className="text-xs md:text-sm font-semibold">Generated Code</label>
@@ -455,7 +713,8 @@ const AnimationDemo = ({
                         </div>
                     </div>
                 </div>
-            </div>
+            </SidebarInset>
+        </SidebarProvider>
         </div>
     )
 }

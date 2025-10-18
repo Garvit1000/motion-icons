@@ -5,7 +5,7 @@ import MotionIcon from '../components/MotionIcon';
 import AnimatedCopyButton from '../components/AnimatedCopyButton';
 import { ArrowRight, Code, Github } from 'lucide-react';
 import HeroSection from '../components/hero-section';
-import Navbar from "@/components/Navbar";
+
 import Features from "@/components/Features";
 import {CTA} from "@/components/CallToAction";
 import { motion } from 'framer-motion';
@@ -129,7 +129,7 @@ function App() {
               <Link to="/gallery" className="hover:text-black transition-colors">Gallery</Link>
               <Link to="/animations" className="hover:text-black transition-colors">Animations</Link>
               <a href="#" className="hover:text-black transition-colors">Documentation</a>
-              <a href="#" className="hover:text-black transition-colors">GitHub</a>
+              <a href="https://github.com/Garvit1000/npm-motion-icons" className="hover:text-black transition-colors">GitHub</a>
             </div>
           </div>
           <div className="mt-8 text-center text-xs text-gray-500">
@@ -141,4 +141,4 @@ function App() {
   );
 };
 
-export default Home;
+export default Home ;
