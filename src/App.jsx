@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import IconGallery from './pages/IconGallery';
 import AnimationDemo from './pages/AnimationDemo';
@@ -7,6 +7,7 @@ import EntranceAnimations from './pages/EntranceAnimations';
 import { Toaster } from './components/ui/sonner';
 import Navbar from './components/Navbar';
 import Legal from './pages/Legal';
+import { Analytics } from '@vercel/analytics/react';
 
 function AppContent() {
 
@@ -31,6 +32,7 @@ function App() {
         <AppContent />
       </BrowserRouter>
       <Toaster />
+      <Analytics />
     </div>
   );
 }
