@@ -10,7 +10,7 @@ import Features from "@/components/Features";
 import {CTA} from "@/components/CallToAction";
 import { motion } from 'framer-motion';
 import {HandWrittenTitle} from '../components/ui/HandWrittenTitle';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 import CodeComparisonSection from '../components/CodeCompareSection';
 const Home = () => {
 
@@ -75,6 +75,143 @@ function App() {
       {/* Code Example */}
       <CodeComparisonSection/>
 
+      {/* Example Usage Section */}
+      <section className="py-20 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
+              Simple Examples
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Get started in seconds with these easy-to-understand examples
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Example 1: Basic Animation */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-center h-32">
+                  <MotionIcon
+                    name="Heart"
+                    size={48}
+                    animation="heartbeat"
+                    className="text-red-500"
+                  />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-black mb-2">Basic Animation</h3>
+                <p className="text-sm text-gray-600 mb-4">A simple heartbeat animation</p>
+                <AnimatedCopyButton
+                  code={`<MotionIcon
+  name="Heart"
+  size={48}
+  animation="heartbeat"
+  className="text-red-500"
+/>`}
+                />
+              </div>
+            </div>
+
+            {/* Example 2: Hover Trigger */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-center h-32">
+                  <MotionIcon
+                    name="Loader2"
+                    size={48}
+                    animation="spin"
+                    trigger="hover"
+                    className="text-blue-500"
+                  />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-black mb-2">Hover to Animate</h3>
+                <p className="text-sm text-gray-600 mb-4">Spin on hover interaction</p>
+                <AnimatedCopyButton
+                  code={`<MotionIcon
+  name="Loader2"
+  size={48}
+  animation="spin"
+  trigger="hover"
+  className="text-blue-500"
+/>`}
+                />
+              </div>
+            </div>
+
+            {/* Example 3: Entrance Animation */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-center h-32">
+                  <MotionIcon
+                    name="Sparkles"
+                    size={48}
+                    entrance="zoomIn"
+                    animation="tada"
+                    className="text-yellow-500"
+                  />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-black mb-2">Entrance Effect</h3>
+                <p className="text-sm text-gray-600 mb-4">Zoom in with tada animation</p>
+                <AnimatedCopyButton
+                  code={`<MotionIcon
+  name="Sparkles"
+  size={48}
+  entrance="zoomIn"
+  animation="tada"
+  className="text-yellow-500"
+/>`}
+                />
+              </div>
+            </div>
+
+            {/* Example 4: Interactive Button */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-6 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-center h-32">
+                  <MotionIcon
+                    name="Bell"
+                    size={48}
+                    animation="wiggle"
+                    trigger="click"
+                    interactive={true}
+                    className="text-purple-500"
+                  />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-black mb-2">Click to Animate</h3>
+                <p className="text-sm text-gray-600 mb-4">Interactive notification bell</p>
+                <AnimatedCopyButton
+                  code={`<MotionIcon
+  name="Bell"
+  size={48}
+  animation="wiggle"
+  trigger="click"
+  interactive={true}
+  className="text-purple-500"
+/>`}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link to="/animations">
+              <Button size="lg" className="bg-black text-white hover:bg-gray-800">
+                Explore All Examples
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid */}
         <Features/>
 
@@ -128,7 +265,7 @@ function App() {
                 <Link to="/legal" className="hover:text-black transition-colors">Legal</Link>
               <Link to="/gallery" className="hover:text-black transition-colors">Gallery</Link>
               <Link to="/animations" className="hover:text-black transition-colors">Animations</Link>
-              <a href="#" className="hover:text-black transition-colors">Documentation</a>
+              <a href="https://none-9e5c6865.mintlify.app/" className="hover:text-black transition-colors">Documentation</a>
               <a href="https://github.com/Garvit1000/npm-motion-icons" className="hover:text-black transition-colors">GitHub</a>
             </div>
           </div>
