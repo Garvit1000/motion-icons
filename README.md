@@ -5,7 +5,7 @@
 Motion Icons is a powerful React component library that brings your icons to life with smooth animations, entrance effects, and interactive behaviors. Built on top of Lucide React icons with 3500+ icons and 15+ animation presets.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://img.shields.io/npm/v/motion-icons.svg)](https://www.npmjs.com/package/motion-icons)
+[![npm version](https://img.shields.io/npm/v/motion-icons.svg)](https://www.npmjs.com/package/motion-icons-react)
 
 ## ✨ Features
 
