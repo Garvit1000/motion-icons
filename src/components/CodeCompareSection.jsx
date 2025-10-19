@@ -39,6 +39,7 @@ export default function Icons() {
 `;
 
   const afterCode = `import { MotionIcon } from '@motion-icons/react';
+import '@motion-icons/react/style.css';
 
 
 export default function App() {

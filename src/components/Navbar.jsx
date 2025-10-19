@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, Github, Sparkles } from 'lucide-react';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -8,7 +8,7 @@ export default function Navbar() {
         { label: 'Gallery', href: '/gallery' },
         { label: 'Playground', href: '/animations' },
         { label: 'Animations', href: '/entrance' },
-        { label: 'Docs', href: '/docs' },
+        { label: 'Docs', href: 'https://none-9e5c6865.mintlify.app/' },
     ];
 
     return (
@@ -18,7 +18,7 @@ export default function Navbar() {
                 <a href="/" className="flex items-center gap-1 text-black font-semibold text-lg flex-shrink-0">
                     <div className="flex items-center">
                         <img src={logo} alt="Logo" className="h-10 w-auto object-contain" />
-                        <span className="text-black text-xl tracking-tight">Motion Icons</span>
+                        <span className="text-black text-xl tracking-tight font-bold"> Motion Icons</span>
                     </div>
                 </a>
 
@@ -49,7 +49,7 @@ export default function Navbar() {
                 {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center gap-4">
                     <a
-                        href="https://github.com"
+                        href="https://github.com/Garvit1000/npm-motion-icons"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-600 hover:text-black transition-colors"

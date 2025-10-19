@@ -9,12 +9,10 @@ import Navbar from './components/Navbar';
 import Legal from './pages/Legal';
 
 function AppContent() {
-  const location = useLocation();
-  const showNavbar = location.pathname === '/' || location.pathname === '/legal' || location.pathname === '/entrance' || location.pathname === '/gallery' || location.pathname === '/animations';
 
   return (
     <>
-      {showNavbar && <Navbar />}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/gallery" element={<IconGallery />} />
