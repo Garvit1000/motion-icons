@@ -43,7 +43,7 @@ bun add motion-icons-react lucide-react
 
 ```jsx
 import { MotionIcon } from 'motion-icons-react';
-
+import '@motion-icons/react/style.css';
 function App() {
   return (
     <MotionIcon
