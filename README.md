@@ -207,7 +207,7 @@ Motion Icons is built with accessibility in mind:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/motion-icons.git
+git clone https://github.com/Garvit1000/motion-icons.git
 
 # Install dependencies
 cd motion-icons
@@ -267,9 +267,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Documentation](https://motion-icons.dev)
-- [Icon Gallery](https://motion-icons.dev/gallery)
-- [Animation Playground](https://motion-icons.dev/animations)
+- [Documentation](https://motionicons.dev)
+- [Icon Gallery](https://motionicons.dev/gallery)
+- [Animation Playground](https://motionicons.dev/animations)
 - [GitHub Repository](https://github.com/Garvit1000/npm-motion-icons)
 - [npm Package](https://www.npmjs.com/package/motion-icons)
 
