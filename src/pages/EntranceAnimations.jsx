@@ -141,25 +141,7 @@ const EntranceAnimations = () => {
                     <div className="mb-20">
                         <h2 className="text-2xl font-bold text-black mb-6">Real-World Examples</h2>
                         <div className="grid md:grid-cols-2 gap-8">
-                            {/* Animated Copy Button */}
-                            <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
-                                <h3 className="text-lg font-semibold text-black mb-4">Animated Copy Button</h3>
-                                <p className="text-sm text-gray-600 mb-6">
-                                    Click to see the icon transition and state change animation
-                                </p>
-                                <AnimatedCopyButton textToCopy="npm install @motion-icons/react">
-                                    Copy Install Command
-                                </AnimatedCopyButton>
-                                <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
-                  <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`<AnimatedCopyButton 
-  textToCopy="npm install @motion-icons/react"
->
-  Copy Install Command
-</AnimatedCopyButton>`}
-                  </pre>
-                                </div>
-                            </div>
+                           
 
                             {/* Icon with Entrance + Loop */}
                             <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
@@ -242,36 +224,6 @@ const EntranceAnimations = () => {
                                 </div>
                             </div>
 
-                            {/* Interactive Hover */}
-                            <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
-                                <h3 className="text-lg font-semibold text-black mb-4">Interactive Hover Animation</h3>
-                                <p className="text-sm text-gray-600 mb-6">
-                                    Trigger animations on user interaction
-                                </p>
-                                <div className="flex items-center justify-center h-24">
-                                    <Button variant="outline" className="border-gray-300 hover:border-black">
-                                        <MotionIcon
-                                            name="Sparkles"
-                                            size={20}
-                                            animation="tada"
-                                            trigger="hover"
-                                            interactive
-                                            className="mr-2 text-black"
-                                        />
-                                        Hover Me
-                                    </Button>
-                                </div>
-                                <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
-                  <pre className="text-xs text-gray-800 font-mono overflow-x-auto">
-{`<MotionIcon
-  name="Sparkles"
-  animation="tada"
-  trigger="hover"
-  interactive
-/>`}
-                  </pre>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
