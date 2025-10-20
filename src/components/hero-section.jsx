@@ -102,8 +102,8 @@ const HeroSection = () => {
                                     A lightweight React icon library with built-in animations. Customizable, accessible, and optimized for production.
                                 </TextEffect>
 
-                                <Code showCopyButton copyText="npm install motion-icons-react lucide-react" className="mb-12">
-                                    npm install motion-icons-react lucide-react
+                                <Code showCopyButton copyText="npm install motion-icons-react@latest lucide-react" className="mb-12">
+                                    npm install motion-icons-react@latest lucide-react
                                 </Code>
 
                                 {/* CTA Buttons */}
