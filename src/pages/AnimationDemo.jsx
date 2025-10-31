@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react"
 import * as LucideIcons from "lucide-react"
-import { Search, Copy, Check, Menu } from "lucide-react"
+import { Search, Copy, Check, Menu, RotateCcw } from "lucide-react"
 import MotionIcon from "../components/MotionIcon"
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
@@ -50,6 +50,7 @@ const SidebarContentComponent = ({
     animationDelay,
     setAnimationDelay,
     onMobileClose,
+    onReset,
     isCollapsed = false,
 }) => {
     // If collapsed, show icon-only view
@@ -58,79 +59,79 @@ const SidebarContentComponent = ({
             <div className="space-y-4 flex flex-col items-center py-4">
                 {/* Animation icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Animation"
                 >
                     <LucideIcons.Sparkles className="w-5 h-5" />
                 </button>
-                
+
                 {/* Trigger icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Trigger"
                 >
                     <LucideIcons.MousePointer className="w-5 h-5" />
                 </button>
-                
+
                 {/* Entrance icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Entrance"
                 >
                     <LucideIcons.LogIn className="w-5 h-5" />
                 </button>
-                
+
                 {/* Weight icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Weight"
                 >
                     <LucideIcons.Type className="w-5 h-5" />
                 </button>
-                
+
                 {/* Interactive icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Interactive"
                 >
                     <LucideIcons.Hand className="w-5 h-5" />
                 </button>
-                
+
                 {/* Color icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Color"
                 >
                     <LucideIcons.Palette className="w-5 h-5" />
                 </button>
-                
+
                 {/* Size icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Size"
                 >
                     <LucideIcons.Maximize2 className="w-5 h-5" />
                 </button>
-                
+
                 {/* Duration icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Duration"
                 >
                     <LucideIcons.Clock className="w-5 h-5" />
                 </button>
-                
+
                 {/* Delay icon */}
                 <button
-                    onClick={() => {}}
+                    onClick={() => { }}
                     className="w-10 h-10 flex items-center justify-center rounded hover:bg-accent transition-colors"
                     title="Delay"
                 >
@@ -139,9 +140,25 @@ const SidebarContentComponent = ({
             </div>
         )
     }
-    
+
     return (
         <div className="space-y-6">
+            {/* Reset Button */}
+            <SidebarGroup>
+                <SidebarGroupContent>
+                    <button
+                        onClick={() => {
+                            onReset?.()
+                            onMobileClose?.()
+                        }}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors font-medium text-sm"
+                    >
+                        <RotateCcw className="w-4 h-4" />
+                        Reset to Defaults
+                    </button>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
             {/* Animation Selection */}
             <SidebarGroup>
                 <SidebarGroupLabel>ANIMATION</SidebarGroupLabel>
@@ -157,8 +174,8 @@ const SidebarContentComponent = ({
                                         }}
                                         isActive={selectedAnimation === anim.id}
                                         className={`justify-center ${selectedAnimation === anim.id
-                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                                : ""
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
                                             }`}
                                     >
                                         {anim.name}
@@ -185,8 +202,8 @@ const SidebarContentComponent = ({
                                         }}
                                         isActive={selectedTrigger === mode.id}
                                         className={`justify-center ${selectedTrigger === mode.id
-                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                                : ""
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
                                             }`}
                                     >
                                         {mode.label}
@@ -213,8 +230,8 @@ const SidebarContentComponent = ({
                                         }}
                                         isActive={selectedEntrance === entrance.id}
                                         className={`justify-center ${selectedEntrance === entrance.id
-                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                                : ""
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
                                             }`}
                                     >
                                         {entrance.label}
@@ -241,8 +258,8 @@ const SidebarContentComponent = ({
                                         }}
                                         isActive={selectedWeight === weight.id}
                                         className={`justify-center ${selectedWeight === weight.id
-                                                ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                                : ""
+                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                            : ""
                                             }`}
                                     >
                                         {weight.label}
@@ -268,8 +285,8 @@ const SidebarContentComponent = ({
                                     }}
                                     isActive={!isInteractive}
                                     className={`justify-center ${!isInteractive
-                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                            : ""
+                                        ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                        : ""
                                         }`}
                                 >
                                     False
@@ -283,8 +300,8 @@ const SidebarContentComponent = ({
                                     }}
                                     isActive={isInteractive}
                                     className={`justify-center ${isInteractive
-                                            ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
-                                            : ""
+                                        ? "bg-blue-600 text-white hover:bg-blue-700 hover:text-white"
+                                        : ""
                                         }`}
                                 >
                                     True
@@ -308,8 +325,8 @@ const SidebarContentComponent = ({
                                     onMobileClose?.()
                                 }}
                                 className={`w-8 h-8 rounded border-2 transition-all ${selectedColorOption === color.class
-                                        ? "border-blue-600 ring-2 ring-blue-200"
-                                        : "border-gray-300"
+                                    ? "border-blue-600 ring-2 ring-blue-200"
+                                    : "border-gray-300"
                                     }`}
                                 style={{ backgroundColor: color.color }}
                                 title={color.name}
@@ -373,7 +390,7 @@ const SidebarContentComponent = ({
 const DesktopSidebarWrapper = (props) => {
     const { state } = useSidebar()
     const isCollapsed = state === "collapsed"
-    
+
     return (
         <Sidebar className="hidden lg:flex">
             <SidebarHeader className="border-b">
@@ -419,6 +436,21 @@ const AnimationDemo = ({
     const [selectedColorOption, setSelectedColorOption] = useState(iconColor)
     const [isInteractive, setIsInteractive] = useState(false)
     const [copiedCode, setCopiedCode] = useState(false)
+
+    // Reset function to restore all defaults
+    const handleReset = () => {
+        setAnimationDuration(1000)
+        setIconSize(48)
+        setSelectedAnimation(defaultAnimation)
+        setSelectedIcon(defaultIcon)
+        setSelectedTrigger("always")
+        setIconSearchQuery("")
+        setSelectedEntrance("none")
+        setAnimationDelay(0)
+        setSelectedWeight("regular")
+        setSelectedColorOption(iconColor)
+        setIsInteractive(false)
+    }
 
     // Animation definitions
     const loopingAnimations = [
@@ -507,18 +539,54 @@ const AnimationDemo = ({
 
     const generateCode = () => {
         const selectedColor = tailwindColors.find(c => c.class === selectedColorOption);
-        return `<MotionIcon
-  name="${selectedIcon}"
-  size={${iconSize}}
-  color="${selectedColor?.color || '#000000'}"
-  animation="${selectedAnimation}"
-  entrance={${selectedEntrance !== 'none' ? `"${selectedEntrance}"` : 'null'}}
-  animationDuration={${animationDuration}}
-  animationDelay={${animationDelay}}
-  trigger="${selectedTrigger}"
-  weight="${selectedWeight}"
-  interactive={${isInteractive}}
-/>`;
+        const props = [];
+
+        // Always include name (required)
+        props.push(`name="${selectedIcon}"`);
+
+        // Only include props that differ from defaults
+        if (iconSize !== 24) {
+            props.push(`size={${iconSize}}`);
+        }
+
+        if (selectedColor?.color !== '#000000' && selectedColorOption !== iconColor) {
+            props.push(`color="${selectedColor?.color}"`);
+        }
+
+        if (selectedAnimation !== 'none') {
+            props.push(`animation="${selectedAnimation}"`);
+        }
+
+        if (selectedEntrance !== 'none') {
+            props.push(`entrance="${selectedEntrance}"`);
+        }
+
+        if (animationDuration !== 1000) {
+            props.push(`animationDuration={${animationDuration}}`);
+        }
+
+        if (animationDelay !== 0) {
+            props.push(`animationDelay={${animationDelay}}`);
+        }
+
+        if (selectedTrigger !== 'always') {
+            props.push(`trigger="${selectedTrigger}"`);
+        }
+
+        if (selectedWeight !== 'regular') {
+            props.push(`weight="${selectedWeight}"`);
+        }
+
+        if (isInteractive) {
+            props.push(`interactive={true}`);
+        }
+
+        // Format the output
+        if (props.length === 1) {
+            return `<MotionIcon ${props[0]} />`;
+        }
+
+        return `<MotionIcon\n  ${props.join('\n  ')}\n/>`;
     };
 
     const handleCopyCode = () => {
@@ -571,6 +639,7 @@ const AnimationDemo = ({
                     setAnimationDuration={setAnimationDuration}
                     animationDelay={animationDelay}
                     setAnimationDelay={setAnimationDelay}
+                    onReset={handleReset}
                 />
 
                 {/* Main Content */}
@@ -622,6 +691,7 @@ const AnimationDemo = ({
                                             animationDelay={animationDelay}
                                             setAnimationDelay={setAnimationDelay}
                                             onMobileClose={() => setMobileSidebarOpen(false)}
+                                            onReset={handleReset}
                                         />
                                     </div>
                                 </div>
@@ -629,92 +699,92 @@ const AnimationDemo = ({
                         </Sheet>
                     </div>
 
-                {/* Main Content Area */}
-                <div className="flex-1 overflow-y-auto">
-                    <div className="p-3 md:p-4 lg:p-6 space-y-4 md:space-y-6">
-                        {/* Icon Selection */}
-                        <div className="space-y-2 md:space-y-3">
-                            <label className="text-xs md:text-sm font-semibold">Select Icon</label>
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400 pointer-events-none" />
-                                <Input
-                                    placeholder="Search icons..."
-                                    value={iconSearchQuery}
-                                    onChange={(e) => setIconSearchQuery(e.target.value)}
-                                    className="pl-9 md:pl-10 text-sm md:text-base"
-                                />
-                            </div>
-                            <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1.5 md:gap-2 max-h-40 md:max-h-48 overflow-y-auto p-2 bg-white border border-gray-200 rounded-lg">
-                                {filteredIcons.slice(0, 40).map((icon) => {
-                                    const IconComponent = LucideIcons[icon]
-                                    return (
-                                        <button
-                                            key={icon}
-                                            onClick={() => setSelectedIcon(icon)}
-                                            className={`p-2 md:p-3 rounded flex items-center justify-center transition-colors ${selectedIcon === icon
+                    {/* Main Content Area */}
+                    <div className="flex-1 overflow-y-auto">
+                        <div className="p-3 md:p-4 lg:p-6 space-y-4 md:space-y-6">
+                            {/* Icon Selection */}
+                            <div className="space-y-2 md:space-y-3">
+                                <label className="text-xs md:text-sm font-semibold">Select Icon</label>
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400 pointer-events-none" />
+                                    <Input
+                                        placeholder="Search icons..."
+                                        value={iconSearchQuery}
+                                        onChange={(e) => setIconSearchQuery(e.target.value)}
+                                        className="pl-9 md:pl-10 text-sm md:text-base"
+                                    />
+                                </div>
+                                <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1.5 md:gap-2 max-h-40 md:max-h-48 overflow-y-auto p-2 bg-white border border-gray-200 rounded-lg">
+                                    {filteredIcons.slice(0, 40).map((icon) => {
+                                        const IconComponent = LucideIcons[icon]
+                                        return (
+                                            <button
+                                                key={icon}
+                                                onClick={() => setSelectedIcon(icon)}
+                                                className={`p-2 md:p-3 rounded flex items-center justify-center transition-colors ${selectedIcon === icon
                                                     ? "bg-blue-600 text-white"
                                                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                }`}
-                                            title={icon}
-                                        >
-                                            {IconComponent && <IconComponent className="w-4 h-4 md:w-5 md:h-5" />}
-                                        </button>
-                                    )
-                                })}
-                            </div>
-                        </div>
-
-                        {/* Icon Preview Section */}
-                        <div className="bg-white border border-gray-200 rounded-lg p-6 md:p-8 lg:p-12 flex items-center justify-center min-h-48 md:min-h-64">
-                            <div className="flex flex-col items-center gap-3 md:gap-4">
-                                <MotionIcon
-                                    name={selectedIcon}
-                                    size={iconSize}
-                                    color={tailwindColors.find(c => c.class === selectedColorOption)?.color || '#000000'}
-                                    animation={selectedAnimation}
-                                    entrance={selectedEntrance !== 'none' ? selectedEntrance : null}
-                                    animationDuration={animationDuration}
-                                    animationDelay={animationDelay}
-                                    trigger={selectedTrigger}
-                                    weight={selectedWeight}
-                                    interactive={isInteractive}
-                                />
-                                <div className="text-center">
-                                    <p className="font-semibold text-sm md:text-base">{selectedIcon}</p>
-                                    <p className="text-xs text-gray-600">{selectedAnimation}</p>
+                                                    }`}
+                                                title={icon}
+                                            >
+                                                {IconComponent && <IconComponent className="w-4 h-4 md:w-5 md:h-5" />}
+                                            </button>
+                                        )
+                                    })}
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Generated Code Section */}
-                        <div className="space-y-2 md:space-y-3 bg-white border border-gray-200 rounded-lg p-4 md:p-6">
-                            <div className="flex items-center justify-between">
-                                <label className="text-xs md:text-sm font-semibold">Generated Code</label>
-                                <button
-                                    onClick={handleCopyCode}
-                                    className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1 md:py-1.5 rounded text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
-                                >
-                                    {copiedCode ? (
-                                        <>
-                                            <Check className="w-3 h-3 md:w-4 md:h-4" />
-                                            <span className="hidden sm:inline">Copied</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Copy className="w-3 h-3 md:w-4 md:h-4" />
-                                            <span className="hidden sm:inline">Copy</span>
-                                        </>
-                                    )}
-                                </button>
+                            {/* Icon Preview Section */}
+                            <div className="bg-white border border-gray-200 rounded-lg p-6 md:p-8 lg:p-12 flex items-center justify-center min-h-48 md:min-h-64">
+                                <div className="flex flex-col items-center gap-3 md:gap-4">
+                                    <MotionIcon
+                                        name={selectedIcon}
+                                        size={iconSize}
+                                        color={tailwindColors.find(c => c.class === selectedColorOption)?.color || '#000000'}
+                                        animation={selectedAnimation}
+                                        entrance={selectedEntrance !== 'none' ? selectedEntrance : null}
+                                        animationDuration={animationDuration}
+                                        animationDelay={animationDelay}
+                                        trigger={selectedTrigger}
+                                        weight={selectedWeight}
+                                        interactive={isInteractive}
+                                    />
+                                    <div className="text-center">
+                                        <p className="font-semibold text-sm md:text-base">{selectedIcon}</p>
+                                        <p className="text-xs text-gray-600">{selectedAnimation}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <pre className="bg-gray-50 p-3 md:p-4 rounded-lg overflow-x-auto text-xs font-mono border border-gray-200">
-                                <code>{generateCode()}</code>
-                            </pre>
+
+                            {/* Generated Code Section */}
+                            <div className="space-y-2 md:space-y-3 bg-white border border-gray-200 rounded-lg p-4 md:p-6">
+                                <div className="flex items-center justify-between">
+                                    <label className="text-xs md:text-sm font-semibold">Generated Code</label>
+                                    <button
+                                        onClick={handleCopyCode}
+                                        className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1 md:py-1.5 rounded text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                                    >
+                                        {copiedCode ? (
+                                            <>
+                                                <Check className="w-3 h-3 md:w-4 md:h-4" />
+                                                <span className="hidden sm:inline">Copied</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Copy className="w-3 h-3 md:w-4 md:h-4" />
+                                                <span className="hidden sm:inline">Copy</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                                <pre className="bg-gray-50 p-3 md:p-4 rounded-lg overflow-x-auto text-xs font-mono border border-gray-200">
+                                    <code>{generateCode()}</code>
+                                </pre>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </SidebarInset>
-        </SidebarProvider>
+                </SidebarInset>
+            </SidebarProvider>
         </div>
     )
 }

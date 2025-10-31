@@ -1,4 +1,4 @@
-# 🎨 Motion Icons
+# Motion Icons
 
 **Beautiful animated icons for React** - Where simplicity meets motion.
 
@@ -7,19 +7,19 @@ Motion Icons is a powerful React component library that brings your icons to lif
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://img.shields.io/npm/v/motion-icons.svg)](https://www.npmjs.com/package/motion-icons)
 
-## ✨ Features
+## Features
 
-- 🎭 **3500+ Icons** - Full Lucide icon library support
-- 🎬 **15+ Animations** - Pulse, spin, bounce, wiggle, flip, and more
-- 🎪 **Entrance Effects** - Fade, slide, zoom, and rotate entrances
-- 🎯 **Smart Triggers** - Always, hover, click, or keyboard focus
-- ⚡ **Lightweight** - Less than 2KB per icon (gzipped)
-- 🎨 **Fully Customizable** - Size, color, duration, delay, and more
-- ♿ **Accessible** - Built with keyboard navigation and ARIA support
-- 🎪 **Interactive Mode** - Scale effects on hover/focus
-- 📦 **Tree Shakeable** - Only bundle what you use
+-  **3500+ Icons** - Full Lucide icon library support
+-  **15+ Animations** - Pulse, spin, bounce, wiggle, flip, and more
+-  **Entrance Effects** - Fade, slide, zoom, and rotate entrances
+-  **Smart Triggers** - Always, hover, click, or keyboard focus
+-  **Lightweight** - Less than 2KB per icon (gzipped)
+-  **Fully Customizable** - Size, color, duration, delay, and more
+-  **Accessible** - Built with keyboard navigation and ARIA support
+-  **Interactive Mode** - Scale effects on hover/focus
+-  **Tree Shakeable** - Only bundle what you use
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Installation
 
@@ -46,7 +46,7 @@ function App() {
 }
 ```
 
-## 📖 Examples
+## Examples
 
 ### Basic Animation
 
@@ -108,7 +108,7 @@ function App() {
 />
 ```
 
-## 🎛️ API Reference
+## API Reference
 
 ### Props
 
@@ -173,7 +173,7 @@ function App() {
 - `regular` - Normal stroke (2px)
 - `bold` - Thick stroke (2.5px)
 
-## 🎨 Styling
+## Styling
 
 Motion Icons uses Tailwind CSS for styling. You can customize colors, sizes, and more using Tailwind classes:
 
@@ -186,7 +186,7 @@ Motion Icons uses Tailwind CSS for styling. You can customize colors, sizes, and
 />
 ```
 
-## ♿ Accessibility
+## Accessibility
 
 Motion Icons is built with accessibility in mind:
 
@@ -196,7 +196,7 @@ Motion Icons is built with accessibility in mind:
 - Respects `prefers-reduced-motion` media query
 - Semantic HTML with proper roles
 
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 
@@ -223,7 +223,7 @@ npm run dev
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 motion-icons/
@@ -244,7 +244,7 @@ motion-icons/
 └── package.json
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -254,18 +254,18 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [Lucide React](https://lucide.dev/) icons
 - Powered by [React](https://reactjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 
-## 🔗 Links
+## Links
 
 - [Documentation](https://motion-icons.dev)
 - [Icon Gallery](https://motion-icons.dev/gallery)
@@ -273,7 +273,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [GitHub Repository](https://github.com/Garvit1000/npm-motion-icons)
 - [npm Package](https://www.npmjs.com/package/motion-icons)
 
-## 📊 Stats
+## Stats
 
 - **3500+** Available Icons
 - **15+** Animation Presets
