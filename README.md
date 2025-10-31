@@ -4,8 +4,10 @@
 
 Motion Icons is a powerful React component library that brings your icons to life with smooth animations, entrance effects, and interactive behaviors. Built on top of Lucide React icons with 3500+ icons and 15+ animation presets.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://img.shields.io/npm/v/motion-icons.svg)](https://www.npmjs.com/package/motion-icons)
+![Motion Icons React](https://img.shields.io/badge/Motion%20Icons-React-blue?style=for-the-badge)
+[![npm version](https://img.shields.io/npm/v/motion-icons-react?style=for-the-badge)](https://www.npmjs.com/package/motion-icons-react)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=for-the-badge)](https://www.typescriptlang.org/)
 
 ## Features
 
@@ -24,16 +26,24 @@ Motion Icons is a powerful React component library that brings your icons to lif
 ### Installation
 
 ```bash
-npm install motion-icons lucide-react
-# or
-yarn add motion-icons lucide-react
+# npm
+npm install motion-icons-react lucide-react
+
+# pnpm
+pnpm add motion-icons-react lucide-react
+
+# yarn
+yarn add motion-icons-react lucide-react
+
+# bun
+bun add motion-icons-react lucide-react
 ```
 
 ### Basic Usage
 
 ```jsx
-import { MotionIcon } from 'motion-icons';
-
+import { MotionIcon } from 'motion-icons-react';
+import '@motion-icons/react/style.css';
 function App() {
   return (
     <MotionIcon
@@ -207,7 +217,7 @@ Motion Icons is built with accessibility in mind:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/motion-icons.git
+git clone https://github.com/Garvit1000/motion-icons.git
 
 # Install dependencies
 cd motion-icons
@@ -267,11 +277,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Links
 
-- [Documentation](https://motion-icons.dev)
-- [Icon Gallery](https://motion-icons.dev/gallery)
-- [Animation Playground](https://motion-icons.dev/animations)
+- [Documentation](https://motionicons.dev)
+- [Icon Gallery](https://motionicons.dev/gallery)
+- [Animation Playground](https://motionicons.dev/animations)
 - [GitHub Repository](https://github.com/Garvit1000/npm-motion-icons)
-- [npm Package](https://www.npmjs.com/package/motion-icons)
+- [npm Package](https://www.npmjs.com/package/motion-icons-react)
 
 ## Stats
 
