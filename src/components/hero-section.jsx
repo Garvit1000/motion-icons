@@ -99,7 +99,7 @@ const HeroSection = () => {
                                     as="p"
                                     className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
                                 >
-                                    A lightweight React icon library with built-in animations. Customizable, accessible, and optimized for production.
+                                    Stop wiring animation logic manually. Add motion to any icon in seconds.
                                 </TextEffect>
 
                                 <Code showCopyButton copyText="npm install motion-icons-react@latest lucide-react" className="mb-12">
