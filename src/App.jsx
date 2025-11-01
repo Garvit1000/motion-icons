@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import IconGallery from './pages/IconGallery';
 import AnimationDemo from './pages/AnimationDemo';
-import EntranceAnimations from './pages/EntranceAnimations';
+import Recipes from './pages/Recipes';
 import { Toaster } from './components/ui/sonner';
 import Navbar from './components/Navbar';
 import Legal from './pages/Legal';
@@ -18,7 +18,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/gallery" element={<IconGallery />} />
         <Route path="/animations" element={<AnimationDemo />} />
-        <Route path="/entrance" element={<EntranceAnimations />} />
+        <Route path="/recipes" element={<Recipes />} />
         <Route path="/legal" element={<Legal />} />
       </Routes>
     </>

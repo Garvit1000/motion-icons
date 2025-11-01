@@ -71,12 +71,14 @@ const MotionIcon = ({
     // Trigger entrance animation on mount
     useEffect(() => {
         if (entrance) {
+            // Wait for both delay AND duration before removing entrance class
+            const totalTime = animationDelay + animationDuration;
             const timer = setTimeout(() => {
                 setHasEntered(true);
-            }, animationDelay);
+            }, totalTime);
             return () => clearTimeout(timer);
         }
-    }, [entrance, animationDelay]);
+    }, [entrance, animationDelay, animationDuration]);
 
     // Reset animation state when icon name changes
     useEffect(() => {
@@ -173,6 +175,7 @@ const MotionIcon = ({
             style={{
                 animationDuration: `${animationDuration}ms`,
                 animationDelay: `${animationDelay}ms`,
+                ...(entrance && !hasEntered && { opacity: 0 }),
                 color
             }}
             onClick={handleClick}

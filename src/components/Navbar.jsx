@@ -7,7 +7,7 @@ export default function Navbar() {
     const navLinks = [
         { label: 'Gallery', href: '/gallery' },
         { label: 'Playground', href: '/animations' },
-        { label: 'Animations', href: '/entrance' },
+        { label: 'Recipes', href: '/recipes' },
         { label: 'Docs', href: 'https://none-9e5c6865.mintlify.app/' },
     ];
 
