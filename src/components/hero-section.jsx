@@ -99,7 +99,7 @@ const HeroSection = () => {
                                     as="p"
                                     className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
                                 >
-                                    Stop wiring animation logic manually. Add motion to any icon in seconds.
+                                   Stop wiring animation logic manually. Add motion to any icon in seconds.
                                 </TextEffect>
 
                                 <Code showCopyButton copyText="npm install motion-icons-react@latest lucide-react" className="mb-12">
@@ -123,7 +123,7 @@ const HeroSection = () => {
                                 >
                                     <Link to="/gallery">
                                         <Button size="lg" className="bg-gray-700 hover:bg-gray-800 text-white font-medium h-12 px-8 transition-transform hover:scale-105">
-                                            Browse Icons
+                                            Examples
                                             <ArrowRight className="ml-2 h-4 w-4" />
                                         </Button>
                                     </Link>
