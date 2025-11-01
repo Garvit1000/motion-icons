@@ -423,7 +423,7 @@ const Recipes = () => {
                             Get started with Motion Icons and build delightful interfaces without the complexity.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2 sm:pt-4 px-4">
-                            <a href="https://docs.motionicons.dev" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                            <a href="https://none-9e5c6865.mintlify.app/" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">
                                 View Documentation
                             </a>
                             <a href="/animations" className="px-6 py-3 border border-gray-200 text-black rounded-lg font-medium hover:bg-gray-50 transition-colors">
